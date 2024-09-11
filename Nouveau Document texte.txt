@@ -1,0 +1,4 @@
+Abdul: création du personnage, création de l'interface (inventaire)
+
+Antony: création du personnage, création du système de combat 
+adel: création du personnage, création de l'interface (boutique)
