@@ -60,7 +60,7 @@ func main() {
 		case"2":
 			joueur.AfficherInventaire()
 		case"3":
-			fmt.Println(Merci d'avoir joué. Au revoir!")
+			fmt.Println("Merci d'avoir joué. Au revoir!")
 			return
 		default:
 			fmt.Println("Option invalide. Veuiller choisir 1, 2 ou 3.")
