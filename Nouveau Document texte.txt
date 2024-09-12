@@ -1,4 +1,8 @@
-Abdul: création du personnage, création de l'interface (inventaire)
+malek: création du personnage, création de l'interface (inventaire)
 
 Antony: création du personnage, création du système de combat 
 adel: création du personnage, création de l'interface (boutique)
+
+m: 5,6,8,10
+an: tache 1,2,9,10
+ad:3,4,7,10
