@@ -19,18 +19,16 @@ type Personnage struct {
 	SanteActuelle    int
 	SanteMax         int
 	Inventaire       []string
-	EmplacementsMax  int       // Capacity of the inventory
-	AmeliorationsInv int       // Number of inventory upgrades
-	Argent           int       // Amount of gold
-	Competences      []string  // Skills
-	Equipement       Equipment // Equipment worn
+	EmplacementsMax  int
+	AmeliorationsInv int
+	Argent           int
+	Competences      []string
+	Equipement       Equipment
 }
 
-// Function to create a character
 func CharCreation() Personnage {
 	var nom, classe string
 
-	// Ask for character name
 	for {
 		fmt.Print("Entrez le nom de votre personnage (uniquement des lettres) : ")
 		fmt.Scanln(&nom)
@@ -43,7 +41,6 @@ func CharCreation() Personnage {
 		}
 	}
 
-	// Ask for character class
 	for {
 		fmt.Println("Choisissez une classe parmi : Humain, Elfe, Nain")
 		fmt.Scanln(&classe)
@@ -56,7 +53,6 @@ func CharCreation() Personnage {
 		}
 	}
 
-	// Set max health points based on class
 	var santeMax int
 	switch classe {
 	case "Humain":
@@ -67,11 +63,9 @@ func CharCreation() Personnage {
 		santeMax = 120
 	}
 
-	// Initialize the character with half health points, empty inventory, 100 gold, and no equipment
 	return Init(nom, classe, 1, santeMax, santeMax/2, []string{}, 100, 10, 0, Equipment{})
 }
 
-// Init function initializes a new character
 func Init(nom, classe string, niveau, santeMax, santeActuelle int, inventaire []string, argent, emplacementsMax, ameliorationsInv int, equip Equipment) Personnage {
 	return Personnage{
 		Nom:              nom,
@@ -88,7 +82,6 @@ func Init(nom, classe string, niveau, santeMax, santeActuelle int, inventaire []
 	}
 }
 
-// Display character information
 func AfficherInfos(c Personnage) {
 	fmt.Println("Informations du personnage :")
 	fmt.Printf("Nom : %s\n", c.Nom)
@@ -102,7 +95,6 @@ func AfficherInfos(c Personnage) {
 	fmt.Printf("Équipement : Tête [%s], Torse [%s], Pieds [%s]\n", c.Equipement.Tete, c.Equipement.Torse, c.Equipement.Pieds)
 }
 
-// Helper function to check if a string contains only alphabetic characters
 func isAlpha(s string) bool {
 	for _, r := range s {
 		if !unicode.IsLetter(r) {
