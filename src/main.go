@@ -20,7 +20,6 @@ const (
 	Bold    = "\033[1m"
 )
 
-// Function to display the main menu with colors and improved aesthetics
 func DisplayMenu() {
 	fmt.Println(Cyan + strings.Repeat("=", 40) + Reset)
 	fmt.Println(Magenta + "\t\t*** " + Bold + "MENU PRINCIPAL" + Reset + Magenta + " ***" + Reset)
@@ -34,11 +33,11 @@ func DisplayMenu() {
 	fmt.Print(Yellow + "\nVotre choix: " + Reset)
 }
 func main() {
-	// Create a character
+
 	p1 := character.CharCreation()
 
 	for {
-		// Display the main menu with improved aesthetics and colors
+
 		DisplayMenu()
 
 		var choix int
