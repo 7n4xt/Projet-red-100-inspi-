@@ -13,15 +13,17 @@ type Equipment struct {
 }
 
 type Personnage struct {
-	Nom           string
-	Classe        string
-	Niveau        int
-	SanteMax      int
-	SanteActuelle int
-	Inventaire    []string
-	Competences   []string
-	Argent        int
-	Equipement    Equipment
+	Nom              string
+	Classe           string
+	Niveau           int
+	SanteActuelle    int
+	SanteMax         int
+	Inventaire       []string
+	EmplacementsMax  int
+	Argent           int
+	AmeliorationsInv int
+	Competences      []string
+	Equipement       Equipement
 }
 
 func CharCreation() Personnage {

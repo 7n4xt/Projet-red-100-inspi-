@@ -60,7 +60,6 @@ func HasResources(c *character.Personnage, ressources []string) bool {
 	return true
 }
 
-// Remove a resource from inventory
 func RemoveResource(c *character.Personnage, ressource string) {
 	for i, item := range c.Inventaire {
 		if item == ressource {

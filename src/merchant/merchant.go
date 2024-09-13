@@ -6,7 +6,6 @@ import (
 	"fmt"
 )
 
-// Function to manage merchant items and purchasing
 func Marchand(c *character.Personnage) {
 	for {
 		fmt.Println("\nMarchand :")
@@ -17,6 +16,7 @@ func Marchand(c *character.Personnage) {
 		fmt.Println("5. Acheter Peau de Troll (7 pièces d'or)")
 		fmt.Println("6. Acheter Cuir de Sanglier (3 pièces d'or)")
 		fmt.Println("7. Acheter Plume de Corbeau (1 pièce d'or)")
+		fmt.Println("8. acheter Augmentation d'inventaire (30 pièces d'or)")
 		fmt.Println("0. Retourner au menu principal")
 		var choix int
 		fmt.Scanln(&choix)
@@ -36,6 +36,8 @@ func Marchand(c *character.Personnage) {
 			AcheterItem(c, "Cuir de Sanglier", 3)
 		case 7:
 			AcheterItem(c, "Plume de Corbeau", 1)
+		case 8:
+			AcheterItem(c, "Augmentation d'inventaire", 30)
 		case 0:
 			return
 		default:
@@ -44,7 +46,6 @@ func Marchand(c *character.Personnage) {
 	}
 }
 
-// Function to handle buying items and deducting money
 func AcheterItem(c *character.Personnage, item string, prix int) {
 	if c.Argent >= prix {
 		if inventory.AjouterInventaire(c, item) {
