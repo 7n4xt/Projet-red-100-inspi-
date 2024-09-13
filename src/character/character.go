@@ -63,7 +63,7 @@ func CharCreation() Personnage {
 		santeMax = 120
 	}
 
-	return Init(nom, classe, 1, santeMax, santeMax/2, []string{}, 100, 10, 0, Equipment{})
+	return Init(nom, classe, 1, santeMax, santeMax/2, []string{}, 200, 10, 0, Equipment{})
 }
 
 func Init(nom, classe string, niveau, santeMax, santeActuelle int, inventaire []string, argent, emplacementsMax, ameliorationsInv int, equip Equipment) Personnage {
