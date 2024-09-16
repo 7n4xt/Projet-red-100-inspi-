@@ -3,6 +3,7 @@ package main
 import "fmt"
 
 func afficherMarchand(p *Personnage) {
+	fmt.Printf("\n                           Or = %d ", p.Argent)
 	fmt.Println("\n                                    === Bienvenue chez le marchand ===")
 	fmt.Println("\n                                    1. Potion de vie (3 pièces d'or)")
 	fmt.Println("\n                                    2. Potion de poison (6 pièces d'or)")

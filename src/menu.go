@@ -18,11 +18,10 @@ func showMainMenu(p *Personnage) {
 	fmt.Println("\n                                        === Menu Principal ===")
 	fmt.Println("\n                                    1. les statistiques du personnage")
 	fmt.Println("\n                                    2. l'inventaire")
-	fmt.Println("\n                                    3. le livre de sorts")
-	fmt.Println("\n                                    4. le marchand")
-	fmt.Println("\n                                    5. le forgeron")
-	fmt.Println("\n                                    6. Entraînement au combat")
-	fmt.Println("\n                                    7. Quitter")
+	fmt.Println("\n                                    3. le marchand")
+	fmt.Println("\n                                    4. le forgeron")
+	fmt.Println("\n                                    5. Entraînement au combat")
+	fmt.Println("\n                                    6. Quitter")
 	fmt.Print("Entrez votre choix : ")
 
 	var choix int
@@ -34,14 +33,12 @@ func showMainMenu(p *Personnage) {
 	case 2:
 		accessInventory(p)
 	case 3:
-		viewSpellbook(p, &Gobelin{})
-	case 4:
 		afficherMarchand(p)
-	case 5:
+	case 4:
 		afficherForgeron(p)
-	case 6:
+	case 5:
 		startCombatTraining(p)
-	case 7:
+	case 6:
 		fmt.Println("Au revoir!")
 		return
 	default:
