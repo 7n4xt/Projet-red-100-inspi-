@@ -70,9 +70,9 @@ func charCreation() Personnage {
 	nom = strings.Title(strings.ToLower(nom))
 
 	fmt.Println("Choisissez votre classe :")
-	fmt.Println("1. Humain (100 PV max, 10 force)")
-	fmt.Println("2. Elfe (80 PV max, 15 magie)")
-	fmt.Println("3. Nain (120 PV max, 5 magie, 10 force)")
+	fmt.Println("1. Golem (100 PV max, 10 force)")
+	fmt.Println("2. sorcier (80 PV max, 15 magie)")
+	fmt.Println("3. Demon (120 PV max, 5 magie, 10 force)")
 	fmt.Print("Entrez un numéro de classe : ")
 	fmt.Scanln(&classe)
 
@@ -85,7 +85,7 @@ func charCreation() Personnage {
 	case "3":
 		p = Personnage{Nom: nom, VieMax: 120, VieActuelle: 120, InventaireMax: 10, Argent: 50}
 	default:
-		fmt.Println("Classe invalide, Humain choisi par défaut.")
+		fmt.Println("Classe invalide, Golem choisi par défaut.")
 		p = Personnage{Nom: nom, VieMax: 100, VieActuelle: 100, InventaireMax: 10, Argent: 50}
 	}
 
