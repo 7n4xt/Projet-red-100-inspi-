@@ -50,12 +50,14 @@ func startCombatTraining(p *Personnage) {
 		}
 	}
 	fmt.Println("Combat terminé!")
+	showMainMenu(p)
 }
 
 func playerAction(p *Personnage, gobelin *Gobelin) {
 	fmt.Println("======== C'est votre tour! =========")
 	fmt.Println("1. Attaquer")
 	fmt.Println("2. Utiliser un objet")
+	fmt.Println("3. Utiliser un sort")
 	fmt.Print("Entrez votre choix : ")
 
 	var choix int
@@ -65,7 +67,9 @@ func playerAction(p *Personnage, gobelin *Gobelin) {
 	case 1:
 		attaquer(p, gobelin)
 	case 2:
-		accessInventoryCombat(p, *gobelin)
+		accessInventoryCombat(p, gobelin) // Goblin passed here
+	case 3:
+		viewSpellbook(p, gobelin) // Call spellbook for spell selection
 	default:
 		fmt.Println("Choix invalide.")
 	}

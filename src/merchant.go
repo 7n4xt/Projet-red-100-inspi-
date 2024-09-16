@@ -3,15 +3,15 @@ package main
 import "fmt"
 
 func afficherMarchand(p *Personnage) {
-	fmt.Println("                                   === Bienvenue chez le marchand ===")
-	fmt.Println("                                   1. Potion de vie (3 pièces d'or)")
-	fmt.Println("                                   2. Potion de poison (6 pièces d'or)")
-	fmt.Println("                                   3. Livre de Sort : Boule de Feu (25 pièces d'or)")
-	fmt.Println("                                   4. Fourrure de Loup (4 pièces d'or)")
-	fmt.Println("                                   5. Peau de Troll (7 pièces d'or)")
-	fmt.Println("                                   6. Cuir de Sanglier (3 pièces d'or)")
-	fmt.Println("                                   7. Plume de Corbeau (1 pièce d'or)")
-	fmt.Println("                                   8. Quitter")
+	fmt.Println("\n                                    === Bienvenue chez le marchand ===")
+	fmt.Println("\n                                    1. Potion de vie (3 pièces d'or)")
+	fmt.Println("\n                                    2. Potion de poison (6 pièces d'or)")
+	fmt.Println("\n                                    3. Livre de Sort : Boule de Feu (25 pièces d'or)")
+	fmt.Println("\n                                   4. Fourrure de Loup (4 pièces d'or)")
+	fmt.Println("\n                                    5. Peau de Troll (7 pièces d'or)")
+	fmt.Println("\n                                    6. Cuir de Sanglier (3 pièces d'or)")
+	fmt.Println("\n                                    7. Plume de Corbeau (1 pièce d'or)")
+	fmt.Println("\n                                    8. Quitter")
 	fmt.Print("Entrez votre choix : ")
 
 	var choix int

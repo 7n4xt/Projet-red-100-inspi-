@@ -3,11 +3,11 @@ package main
 import "fmt"
 
 func afficherForgeron(p *Personnage) {
-	fmt.Println("                                                                    === Forgeron ===")
-	fmt.Println("                                   1. Chapeau de l’aventurier (1 Plume de Corbeau, 1 Cuir de Sanglier, 5 pièces d'or)")
-	fmt.Println("                                   2. Tunique de l’aventurier (2 Fourrure de Loup, 1 Peau de Troll, 5 pièces d'or)")
-	fmt.Println("                                   3. Bottes de l’aventurier (1 Fourrure de Loup, 1 Cuir de Sanglier, 5 pièces d'or)")
-	fmt.Println("                                   4. Quitter")
+	fmt.Println("\n                                                                     === Forgeron ===")
+	fmt.Println("\n                                    1. Chapeau de l’aventurier (1 Plume de Corbeau, 1 Cuir de Sanglier, 5 pièces d'or)")
+	fmt.Println("\n                                    2. Tunique de l’aventurier (2 Fourrure de Loup, 1 Peau de Troll, 5 pièces d'or)")
+	fmt.Println("\n                                    3. Bottes de l’aventurier (1 Fourrure de Loup, 1 Cuir de Sanglier, 5 pièces d'or)")
+	fmt.Println("\n                                   4. Quitter")
 
 	var choix int
 	fmt.Scan(&choix)

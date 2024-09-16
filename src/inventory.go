@@ -40,8 +40,7 @@ func accessInventory(p *Personnage) {
 		}
 	}
 }
-func accessInventoryCombat(p *Personnage, g Gobelin) {
-
+func accessInventoryCombat(p *Personnage, g *Gobelin) {
 	fmt.Println("=== INVENTAIRE ===")
 	if len(p.Inventaire) == 0 {
 		fmt.Println("L'inventaire est vide.")
@@ -55,7 +54,7 @@ func accessInventoryCombat(p *Personnage, g Gobelin) {
 	var choix int
 	fmt.Scan(&choix)
 	if choix == 0 {
-		playerAction(p, &g)
+		return
 	}
 	if choix > 0 && choix <= len(p.Inventaire) {
 		item := p.Inventaire[choix-1]
