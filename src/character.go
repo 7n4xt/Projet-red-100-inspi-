@@ -85,7 +85,7 @@ func charCreation() Personnage {
 	case "3":
 		p = Personnage{Nom: nom, VieMax: 120, VieActuelle: 120, InventaireMax: 10, Argent: 50}
 	default:
-		fmt.Println("Classe invalide, Humain choisi par défaut.")
+		fmt.Println("Classe invalide, Golem choisi par défaut.")
 		p = Personnage{Nom: nom, VieMax: 100, VieActuelle: 100, InventaireMax: 10, Argent: 50}
 	}
 

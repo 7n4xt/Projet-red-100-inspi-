@@ -50,7 +50,6 @@ func startCombatTraining(p *Personnage) {
 		}
 	}
 	fmt.Println("Combat terminé!")
-	showMainMenu(p)
 }
 
 func playerAction(p *Personnage, gobelin *Gobelin) {
