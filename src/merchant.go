@@ -12,7 +12,8 @@ func afficherMarchand(p *Personnage) {
 	fmt.Println("\n                                    5. Peau de Troll (7 pièces d'or)")
 	fmt.Println("\n                                    6. Cuir de Sanglier (3 pièces d'or)")
 	fmt.Println("\n                                    7. Plume de Corbeau (1 pièce d'or)")
-	fmt.Println("\n                                    8. Quitter")
+	fmt.Println("\n									   8. Augementer de 10 la taille de l'inventaire (30 pièces d'or)")
+	fmt.Println("\n                                    9. Quitter")
 	fmt.Print("Entrez votre choix : ")
 
 	var choix int
@@ -39,6 +40,8 @@ func afficherMarchand(p *Personnage) {
 	case 7:
 		acheterObjet(p, "Plume de Corbeau", 1)
 	case 8:
+		acheterObjet(p, "Amelioration d'inventaire(10)", 30)
+	case 9:
 		fmt.Println("Vous quittez le marchand.")
 		showMainMenu(p)
 	default:
@@ -57,5 +60,11 @@ func acheterObjet(p *Personnage, objet string, prix int) {
 	} else {
 		fmt.Println("Vous n'avez pas assez d'or pour acheter cet objet.")
 		afficherForgeron(p)
+		
 	}
+}
+
+func (p *Personnage) AugmenterInventaire() {
+	p.InventaireMax += 10
+	fmt.Printf("La capacité d'inventaire de %s a été augmentée de 10. Capacité actuelle : %d\n", p.Nom, p.InventaireMax)
 }

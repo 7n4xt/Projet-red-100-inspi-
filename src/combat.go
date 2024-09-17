@@ -9,6 +9,7 @@ type Gobelin struct {
 	VieMax        int
 	VieActuelle   int
 	PointsAttaque int
+	Initiative    int
 }
 
 func InitGobelin() Gobelin {
@@ -17,6 +18,7 @@ func InitGobelin() Gobelin {
 		VieMax:        40,
 		VieActuelle:   40,
 		PointsAttaque: 5,
+		Initiative:    2,
 	}
 }
 
