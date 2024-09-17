@@ -50,6 +50,6 @@ func useSpellInCombat(p *Personnage, goblin *Gobelin, s string) {
 		fmt.Printf("%s : PV restants %d/%d\n", goblin.Nom, goblin.VieActuelle, goblin.VieMax)
 	default:
 		fmt.Println("Sort inconnu.")
-		playerAction(p, goblin)
+		startCombatTraining(p)
 	}
 }

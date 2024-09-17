@@ -46,6 +46,7 @@ func craftItem(p *Personnage, item string, requiredItems []string, cost int) {
 	p.Argent -= cost
 	addInventory(p, item)
 	fmt.Printf("Vous avez fabriqué %s. Il vous reste %d pièces d'or.\n", item, p.Argent)
+	afficherForgeron(p)
 }
 
 func contains(slice []string, item string) bool {

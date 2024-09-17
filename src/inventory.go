@@ -40,7 +40,7 @@ func accessInventory(p *Personnage) {
 		}
 	}
 }
-func accessInventoryCombat(p *Personnage, g *Gobelin) {
+func accessInventoryCombat(p *Personnage, gobelin *Gobelin) {
 	fmt.Println("=== INVENTAIRE ===")
 	if len(p.Inventaire) == 0 {
 		fmt.Println("L'inventaire est vide.")
@@ -54,20 +54,20 @@ func accessInventoryCombat(p *Personnage, g *Gobelin) {
 	var choix int
 	fmt.Scan(&choix)
 	if choix == 0 {
-		return
+		startCombatTraining(p)
 	}
 	if choix > 0 && choix <= len(p.Inventaire) {
 		item := p.Inventaire[choix-1]
 		switch item {
 		case "Potion de vie":
 			takePot(p)
-			accessInventoryCombat(p, g)
+			accessInventoryCombat(p, gobelin)
 		case "Potion de poison":
 			poisonPot(p)
-			accessInventoryCombat(p, g)
+			accessInventoryCombat(p, gobelin)
 		case "Livre de Sort : Boule de Feu":
 			addSpell(p, "Boule de Feu")
-			accessInventoryCombat(p, g)
+			accessInventoryCombat(p, gobelin)
 		default:
 			fmt.Println("Objet non reconnu.")
 			return

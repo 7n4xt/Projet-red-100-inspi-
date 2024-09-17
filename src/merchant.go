@@ -8,7 +8,7 @@ func afficherMarchand(p *Personnage) {
 	fmt.Println("\n                                    1. Potion de vie (3 pièces d'or)")
 	fmt.Println("\n                                    2. Potion de poison (6 pièces d'or)")
 	fmt.Println("\n                                    3. Livre de Sort : Boule de Feu (25 pièces d'or)")
-	fmt.Println("\n                                   4. Fourrure de Loup (4 pièces d'or)")
+	fmt.Println("\n                                    4. Fourrure de Loup (4 pièces d'or)")
 	fmt.Println("\n                                    5. Peau de Troll (7 pièces d'or)")
 	fmt.Println("\n                                    6. Cuir de Sanglier (3 pièces d'or)")
 	fmt.Println("\n                                    7. Plume de Corbeau (1 pièce d'or)")
@@ -52,7 +52,7 @@ func acheterObjet(p *Personnage, objet string, prix int) {
 		p.Inventaire = append(p.Inventaire, objet)
 		p.Argent -= prix
 		fmt.Printf("Vous avez ajouté %s à votre inventaire.\n", objet)
-		fmt.Printf("Vous avez acheté %s pour %d pièces d'or. Il vous reste %d pièces d'or.\n", objet, prix, p.Argent)
+		fmt.Printf("Vous avez acheté %s pour %d pièces d'or.\n", objet, prix)
 		afficherMarchand(p)
 	} else {
 		fmt.Println("Vous n'avez pas assez d'or pour acheter cet objet.")
