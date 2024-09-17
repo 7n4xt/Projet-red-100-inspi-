@@ -12,7 +12,7 @@ func afficherMarchand(p *Personnage) {
 	fmt.Println("\n                                    5. Peau de Troll (7 pièces d'or)")
 	fmt.Println("\n                                    6. Cuir de Sanglier (3 pièces d'or)")
 	fmt.Println("\n                                    7. Plume de Corbeau (1 pièce d'or)")
-	fmt.Println("\n									   8. Augementer de 10 la taille de l'inventaire (30 pièces d'or)")
+	fmt.Println("\n                                    8. Augementer de 10 la taille de l'inventaire (30 pièces d'or)")
 	fmt.Println("\n                                    9. Quitter")
 	fmt.Print("Entrez votre choix : ")
 
@@ -60,7 +60,7 @@ func acheterObjet(p *Personnage, objet string, prix int) {
 	} else {
 		fmt.Println("Vous n'avez pas assez d'or pour acheter cet objet.")
 		afficherForgeron(p)
-		
+
 	}
 }
 

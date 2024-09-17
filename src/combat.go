@@ -34,9 +34,9 @@ func (g *Gobelin) RecevoirDegats(degats int) {
 }
 
 func attaquer(gobelin *Gobelin) {
-	damages := 5
+	damages := 8
 	gobelin.RecevoirDegats(damages)
-	fmt.Printf("Vous attaquez le %s pour %d dégâts!\n", gobelin.Nom, damages)
+	fmt.Printf("Vous attaquez le %s pour %d dégâts par un coup de poing!\n", gobelin.Nom, damages)
 }
 
 func gobelinAttaque(p *Personnage, gobelin *Gobelin) {
@@ -52,7 +52,7 @@ func gobelinAttaque(p *Personnage, gobelin *Gobelin) {
 func playerAction(p *Personnage, gobelin *Gobelin) {
 	fmt.Println("C'est votre tour!")
 	fmt.Println("1. Attaquer")
-	fmt.Println("2. Utiliser un objet")
+	fmt.Println("2. inventaire")
 	fmt.Println("3. Utiliser un sort")
 	fmt.Println("4. quittez le combat")
 	fmt.Print("Entrez votre choix : ")

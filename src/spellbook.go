@@ -42,8 +42,8 @@ func viewSpellbook(p *Personnage, goblin *Gobelin) {
 func useSpellInCombat(p *Personnage, goblin *Gobelin, s string) {
 	switch s {
 	case "Boule de Feu":
-		fmt.Printf("%s lance %s et inflige 50 dégâts à %s!\n", p.Nom, s, goblin.Nom)
-		goblin.VieActuelle -= 50
+		fmt.Printf("%s lance %s et inflige 18 dégâts à %s!\n", p.Nom, s, goblin.Nom)
+		goblin.VieActuelle -= 18
 		if goblin.VieActuelle < 0 {
 			goblin.VieActuelle = 0
 		}
