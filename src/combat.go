@@ -9,6 +9,7 @@ type Gobelin struct {
 	VieMax        int
 	VieActuelle   int
 	PointsAttaque int
+	Initiative	int
 }
 
 func InitGobelin() Gobelin {
@@ -17,6 +18,7 @@ func InitGobelin() Gobelin {
 		VieMax:        40,
 		VieActuelle:   40,
 		PointsAttaque: 5,
+		Initiative:		2,
 	}
 }
 
@@ -67,9 +69,9 @@ func playerAction(p *Personnage, gobelin *Gobelin) {
 	case 1:
 		attaquer(p, gobelin)
 	case 2:
-		accessInventoryCombat(p, gobelin) // Goblin passed here
+		accessInventoryCombat(p, gobelin) 
 	case 3:
-		viewSpellbook(p, gobelin) // Call spellbook for spell selection
+		viewSpellbook(p, gobelin)
 	default:
 		fmt.Println("Choix invalide.")
 	}

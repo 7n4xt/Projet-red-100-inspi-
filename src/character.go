@@ -3,7 +3,16 @@ package main
 import (
 	"fmt"
 	"strings"
+	"github.com/fatih/color"
 )
+
+// Fonction pour afficher des bordures stylisées
+func printHeader(title string) {
+	// Utilisation de symboles pour la bordure
+	fmt.Println(strings.Repeat("=", 40))
+	fmt.Printf(" %s\n", title)
+	fmt.Println(strings.Repeat("=", 40))
+}
 
 type Personnage struct {
 	Nom           string
@@ -17,6 +26,9 @@ type Personnage struct {
 	Equipement    Equipement
 	InventaireMax int
 	Spellbook     []string
+	Initiative		int
+	NombreAmeliorations int
+	AmeliorationMax int
 }
 
 type Equipement struct {
@@ -25,7 +37,7 @@ type Equipement struct {
 	Pieds string
 }
 
-func InitPersonnage(nom, classe string, vieMax, vieActuelle int, inventaire []string, argent int) Personnage {
+func InitPersonnage(nom, classe string, vieMax, vieActuelle int, inventaire []string, argent int, initiative int,) Personnage {
 	return Personnage{
 		Nom:         nom,
 		Classe:      classe,
@@ -36,18 +48,33 @@ func InitPersonnage(nom, classe string, vieMax, vieActuelle int, inventaire []st
 		Skills:      []string{"Coup de Poing"},
 		Argent:      argent,
 		Equipement:  Equipement{},
+		Initiative:	 5,
+		InventaireMax: 10,
+		NombreAmeliorations: 0,
+		AmeliorationMax: 3,
 	}
 }
 
 func afficherInfosPersonnage(p *Personnage) {
-	fmt.Println("=== INFORMATIONS DU PERSONNAGE ===")
-	fmt.Println("Nom:", p.Nom)
-	fmt.Println("Classe:", p.Classe)
-	fmt.Println("Niveau:", p.Niveau)
-	fmt.Println("Points de Vie:", p.VieActuelle, "/", p.VieMax)
-	fmt.Println("Inventaire:", p.Inventaire)
-	fmt.Println("Argent:", p.Argent, "pièces d'or")
-	fmt.Println("\nEntrez '0' pour revenir au menu.")
+	printHeader("INFORMATIONS DU PERSONNAGE")
+
+	blue := color.New(color.FgBlue).SprintFunc()
+	red := color.New(color.FgRed).SprintFunc()
+	green := color.New(color.FgGreen).SprintFunc()
+	yellow := color.New(color.FgYellow).SprintFunc()
+
+	fmt.Println("%s : %s\n", blue("=== INFORMATIONS DU PERSONNAGE ==="), yellow(p.Nom))
+	fmt.Printf("%s : %s\n", blue("Nom"), yellow(p.Nom))
+	fmt.Printf("%s : %s\n", blue("Classe"), yellow(p.Classe))
+	fmt.Printf("%s : %d\n", blue("Niveau"), p.Niveau)
+	fmt.Printf("%s : %s%d/%d\n", red("Points de Vie"), green(p.VieActuelle), p.VieMax)
+	fmt.Println("%s :%s\n", blue("Inventaire:"), yellow(p.Inventaire))
+	fmt.Printf("%s : %d\n", blue("Capacité d'Inventaire"), p.InventaireMax)
+	fmt.Printf("%s : %d pièces d'or\n", blue("Argent"), p.Argent)
+	fmt.Printf("%s : %d\n", blue("Initiative"), p.Initiative)
+fmt.Println("%s : %s\n", blue("Nombre d'améloration d'inventaire"), yellow (p.NombreAmeliorations))
+fmt.Println("\nEntrez '0' pour revenir au menu.")
+	fmt.Println(strings.Repeat("-", 40))
 
 	var choix int
 	for {
@@ -79,14 +106,14 @@ func charCreation() Personnage {
 	var p Personnage
 	switch classe {
 	case "1":
-		p = Personnage{Nom: nom, VieMax: 100, VieActuelle: 100, InventaireMax: 10, Argent: 50}
+		p = Personnage{Nom: nom, VieMax: 100, VieActuelle: 100, InventaireMax: 10, Argent: 200}
 	case "2":
-		p = Personnage{Nom: nom, VieMax: 80, VieActuelle: 80, InventaireMax: 10, Argent: 50}
+		p = Personnage{Nom: nom, VieMax: 80, VieActuelle: 80, InventaireMax: 10, Argent: 200}
 	case "3":
-		p = Personnage{Nom: nom, VieMax: 120, VieActuelle: 120, InventaireMax: 10, Argent: 50}
+		p = Personnage{Nom: nom, VieMax: 120, VieActuelle: 120, InventaireMax: 10, Argent: 200}
 	default:
 		fmt.Println("Classe invalide, Golem choisi par défaut.")
-		p = Personnage{Nom: nom, VieMax: 100, VieActuelle: 100, InventaireMax: 10, Argent: 50}
+		p = Personnage{Nom: nom, VieMax: 100, VieActuelle: 100, InventaireMax: 10, Argent: 200}
 	}
 
 	fmt.Printf("Personnage %s créé avec succès!\n", p.Nom)
