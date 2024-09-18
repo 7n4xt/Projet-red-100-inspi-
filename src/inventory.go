@@ -3,24 +3,28 @@ package main
 import (
 	"fmt"
 	"time"
+	"github.com/fatih/color"
 )
 
 func accessInventory(p *Personnage) {
+	yellow := color.New(color.FgYellow).SprintFunc()
+	red := color.New(color.FgRed).SprintFunc()
 
-	fmt.Println("=== INVENTAIRE ===")
+	fmt.Println(yellow("=== INVENTAIRE ==="))
 	if len(p.Inventaire) == 0 {
-		fmt.Println("L'inventaire est vide.")
+		fmt.Println(red("L'inventaire est vide."))
 	} else {
 		for i, item := range p.Inventaire {
 			fmt.Printf("%d. %s\n", i+1, item)
 		}
 	}
 
-	fmt.Println("Choisissez un objet à utiliser ou entrez 0 pour revenir au menu.")
+	fmt.Println(yellow("Choisissez un objet à utiliser ou entrez 0 pour revenir au menu."))
 	var choix int
 	fmt.Scan(&choix)
 	if choix == 0 {
 		showMainMenu(p)
+		return
 	}
 	if choix > 0 && choix <= len(p.Inventaire) {
 		item := p.Inventaire[choix-1]
@@ -34,29 +38,38 @@ func accessInventory(p *Personnage) {
 		case "Livre de Sort : Boule de Feu":
 			addSpell(p, "Boule de Feu")
 			accessInventory(p)
-		case "Amelioration d'inventaire(10)" :
+		case "Amelioration d'inventaire(10)":
 			p.AugmenterInventaire()
+			accessInventory(p)
 		default:
-			fmt.Println("Objet non reconnu.")
+			fmt.Println(red("Objet non reconnu."))
 			accessInventory(p)
 		}
+	} else {
+		fmt.Println(red("Choix invalide."))
+		accessInventory(p)
 	}
 }
+
 func accessInventoryCombat(p *Personnage, gobelin *Gobelin) {
-	fmt.Println("=== INVENTAIRE ===")
+	yellow := color.New(color.FgYellow).SprintFunc()
+	red := color.New(color.FgRed).SprintFunc()
+
+	fmt.Println(yellow("=== INVENTAIRE ==="))
 	if len(p.Inventaire) == 0 {
-		fmt.Println("L'inventaire est vide.")
+		fmt.Println(red("L'inventaire est vide."))
 	} else {
 		for i, item := range p.Inventaire {
 			fmt.Printf("%d. %s\n", i+1, item)
 		}
 	}
 
-	fmt.Println("Choisissez un objet à utiliser ou entrez 0 pour revenir au combat.")
+	fmt.Println(yellow("Choisissez un objet à utiliser ou entrez 0 pour revenir au combat."))
 	var choix int
 	fmt.Scan(&choix)
 	if choix == 0 {
 		startCombatTraining(p)
+		return
 	}
 	if choix > 0 && choix <= len(p.Inventaire) {
 		item := p.Inventaire[choix-1]
@@ -71,13 +84,19 @@ func accessInventoryCombat(p *Personnage, gobelin *Gobelin) {
 			addSpell(p, "Boule de Feu")
 			accessInventoryCombat(p, gobelin)
 		default:
-			fmt.Println("Objet non reconnu.")
-			return
+			fmt.Println(red("Objet non reconnu."))
+			accessInventoryCombat(p, gobelin)
 		}
+	} else {
+		fmt.Println(red("Choix invalide."))
+		accessInventoryCombat(p, gobelin)
 	}
 }
 
 func takePot(p *Personnage) {
+	green := color.New(color.FgGreen).SprintFunc()
+	red := color.New(color.FgRed).SprintFunc()
+
 	for i, item := range p.Inventaire {
 		if item == "Potion de vie" {
 			if p.VieActuelle < p.VieMax {
@@ -86,62 +105,78 @@ func takePot(p *Personnage) {
 					p.VieActuelle = p.VieMax
 				}
 				p.Inventaire = append(p.Inventaire[:i], p.Inventaire[i+1:]...)
-				fmt.Println("Vous avez utilisé une potion de vie.")
-				fmt.Printf("Vie actuelle: %d/%d\n", p.VieActuelle, p.VieMax)
-				break
+				fmt.Println(green("Vous avez utilisé une potion de vie."))
+				fmt.Printf(green("Vie actuelle: %d/%d\n"), p.VieActuelle, p.VieMax)
+				return
 			} else {
-				fmt.Println("Vous avez déjà tous vos points de vie.")
+				fmt.Println(green("Vous avez déjà tous vos points de vie."))
+				return
 			}
 		}
 	}
+	fmt.Println(red("Aucune potion de vie trouvée dans l'inventaire."))
 }
+
 func poisonPot(p *Personnage) {
-	fmt.Println("Vous avez utilisé une potion de poison. Vous subirez 10 points de dégâts chaque seconde pendant 3 secondes.")
+	red := color.New(color.FgRed).SprintFunc()
+
+	fmt.Println(red("Vous avez utilisé une potion de poison. Vous subirez 10 points de dégâts chaque seconde pendant 3 secondes."))
 	for i := 0; i < 3; i++ {
 		p.VieActuelle -= 10
 		if p.VieActuelle < 0 {
 			p.VieActuelle = 0
 		}
-		fmt.Printf("Vous avez %d/%d PV.\n", p.VieActuelle, p.VieMax)
+		fmt.Printf(red("Vous avez %d/%d PV.\n"), p.VieActuelle, p.VieMax)
 		time.Sleep(1 * time.Second)
 	}
 }
+
 func addInventory(p *Personnage, item string) {
+	yellow := color.New(color.FgYellow).SprintFunc()
+	red := color.New(color.FgRed).SprintFunc()
+
 	if len(p.Inventaire) < p.InventaireMax {
 		p.Inventaire = append(p.Inventaire, item)
-		fmt.Printf("Vous avez ajouté %s à votre inventaire.\n", item)
+		fmt.Printf(yellow("Vous avez ajouté %s à votre inventaire.\n"), item)
 	} else {
-		fmt.Println("Votre inventaire est plein. Vous ne pouvez plus ajouter d'items.")
+		fmt.Println(red("Votre inventaire est plein. Vous ne pouvez plus ajouter d'items."))
 	}
 }
+
 func removeInventory(p *Personnage, item string) {
+	red := color.New(color.FgRed).SprintFunc()
+
 	for i, invItem := range p.Inventaire {
 		if invItem == item {
 			p.Inventaire = append(p.Inventaire[:i], p.Inventaire[i+1:]...)
-			fmt.Printf("Vous avez retiré %s de votre inventaire.\n", item)
+			fmt.Printf(red("Vous avez retiré %s de votre inventaire.\n"), item)
 			return
 		}
 	}
-	fmt.Println("L'item n'est pas dans votre inventaire.")
+	fmt.Println(red("L'item n'est pas dans votre inventaire."))
 }
+
 func equipItem(p *Personnage, item string) {
+	green := color.New(color.FgGreen).SprintFunc()
+	red := color.New(color.FgRed).SprintFunc()
+
 	switch item {
 	case "Chapeau de l’aventurier":
 		p.Equipement.Tete = item
 		p.VieMax += 10
-		fmt.Println("Vous avez équipé le Chapeau de l’aventurier. +10 PV max.")
+		fmt.Println(green("Vous avez équipé le Chapeau de l’aventurier. +10 PV max."))
 	case "Tunique de l’aventurier":
 		p.Equipement.Torse = item
 		p.VieMax += 25
-		fmt.Println("Vous avez équipé la Tunique de l’aventurier. +25 PV max.")
+		fmt.Println(green("Vous avez équipé la Tunique de l’aventurier. +25 PV max."))
 	case "Bottes de l’aventurier":
 		p.Equipement.Pieds = item
 		p.VieMax += 15
-		fmt.Println("Vous avez équipé les Bottes de l’aventurier. +15 PV max.")
+		fmt.Println(green("Vous avez équipé les Bottes de l’aventurier. +15 PV max."))
 	default:
-		fmt.Println("Cet équipement ne peut pas être équipé.")
+		fmt.Println(red("Cet équipement ne peut pas être équipé."))
 	}
 
 	removeInventory(p, item)
-	fmt.Printf("Vous avez %d/%d PV.\n", p.VieActuelle, p.VieMax)
+	fmt.Printf(green("Vous avez %d/%d PV.\n"), p.VieActuelle, p.VieMax)
 }

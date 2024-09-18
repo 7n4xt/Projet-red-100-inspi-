@@ -2,10 +2,17 @@ package main
 
 import (
 	"fmt"
+	"github.com/fatih/color"
 )
 
 func showMainMenu(p *Personnage) {
-	fmt.Println(`                     _     __      __                                           
+	// Définir différentes couleurs
+	titleColor := color.New(color.FgCyan).Add(color.Bold).SprintFunc()
+	menuColor := color.New(color.FgGreen).SprintFunc()
+	promptColor := color.New(color.FgYellow).SprintFunc()
+	errorColor := color.New(color.FgRed).SprintFunc()
+
+	fmt.Println(titleColor(`                     _     __      __                                           
                     /' \  /'__'\  /'__'\       __                          __    
                    /\_, \/\ \/\ \/\ \/\ \     /\_\    ___     ____  _____ /\_\   
                    \/_/\ \ \ \ \ \ \ \ \ \    \/\ \ /' _ '\  /',__\/\ '__'\/\ \  
@@ -13,16 +20,16 @@ func showMainMenu(p *Personnage) {
                        \ \_\ \____/\ \____/     \ \_\ \_\ \_\/\____/\ \ ,__/\ \_\
                         \/_/\/___/  \/___/       \/_/\/_/\/_/\/___/  \ \ \/  \/_/ 
                                                                       \ \_\      
-                                                                       \/_/`)
+                                                                       \/_/`))
 
-	fmt.Println("\n                                        === Menu Principal ===")
-	fmt.Println("\n                                    1. Entraînement au combat")
-	fmt.Println("\n                                    2. les statistiques du personnage")
-	fmt.Println("\n                                    3. l'inventaire")
-	fmt.Println("\n                                    4. le marchand")
-	fmt.Println("\n                                    5. le forgeron")
-	fmt.Println("\n                                    6. Quitter")
-	fmt.Print("Entrez votre choix : ")
+	fmt.Println(menuColor("\n                                        === Menu Principal ==="))
+	fmt.Println(menuColor("\n                                    1. Entraînement au combat"))
+	fmt.Println(menuColor("\n                                    2. Les statistiques du personnage"))
+	fmt.Println(menuColor("\n                                    3. L'inventaire"))
+	fmt.Println(menuColor("\n                                    4. Le marchand"))
+	fmt.Println(menuColor("\n                                    5. Le forgeron"))
+	fmt.Println(menuColor("\n                                    6. Quitter"))
+	fmt.Print(promptColor("Entrez votre choix : "))
 
 	var choix int
 	fmt.Scan(&choix)
@@ -39,9 +46,9 @@ func showMainMenu(p *Personnage) {
 	case 5:
 		afficherForgeron(p)
 	case 6:
-		fmt.Println("Au revoir!")
+		fmt.Println(menuColor("Au revoir!"))
 	default:
-		fmt.Println("Choix invalide.")
+		fmt.Println(errorColor("Choix invalide."))
 		showMainMenu(p)
 	}
 }
