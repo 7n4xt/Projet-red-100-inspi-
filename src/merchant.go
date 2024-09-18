@@ -67,7 +67,7 @@ func acheterObjet(p *Personnage, objet string, prix int) {
 	} else {
 		fmt.Println("Vous n'avez pas assez d'or pour acheter cet objet.")
 	}
-	afficherMarchand(p) // Affiche le menu marchand après chaque achat
+	afficherMarchand(p)
 }
 
 func (p *Personnage) AugmenterInventaire() {
@@ -80,4 +80,5 @@ func (p *Personnage) AugmenterInventaire() {
 		fmt.Println("Amélioration impossible : vous avez atteint le nombre maximal d'améliorations.")
 		accessInventory(p)
 	}
+	afficherMarchand(p)
 }

@@ -7,7 +7,6 @@ import (
 	"time"
 )
 
-// Fonction pour afficher un texte en couleur
 func Colormyprint(s string, colors string) {
 	blue := color.New(color.FgBlue).SprintFunc()
 	red := color.New(color.FgRed).SprintFunc()
@@ -29,7 +28,7 @@ func Colormyprint(s string, colors string) {
 }
 
 func printHeader(title string) {
-	// Utilisation de symboles pour la bordure
+
 	fmt.Println(strings.Repeat("=", 40))
 	fmt.Printf(" %s\n", title)
 	fmt.Println(strings.Repeat("=", 40))
@@ -76,7 +75,6 @@ func InitPersonnage(nom, classe string, vieMax, vieActuelle int, inventaire []st
 	}
 }
 
-// Afficher les informations du personnage
 func afficherInfosPersonnage(p *Personnage) {
 	blue := color.New(color.FgBlue).SprintFunc()
 	red := color.New(color.FgRed).SprintFunc()
@@ -122,7 +120,6 @@ func IsLetter(s string) bool {
 	}
 }
 
-// Création d'un personnage
 func charCreation() Personnage {
 	blue := color.New(color.FgBlue).SprintFunc()
 	green := color.New(color.FgGreen).SprintFunc()

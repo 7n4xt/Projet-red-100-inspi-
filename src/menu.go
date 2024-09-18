@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/fatih/color"
 )
 
 func showMainMenu(p *Personnage) {
-	// Définir différentes couleurs
 	titleColor := color.New(color.FgCyan).Add(color.Bold).SprintFunc()
 	menuColor := color.New(color.FgGreen).SprintFunc()
 	promptColor := color.New(color.FgYellow).SprintFunc()
@@ -28,7 +28,8 @@ func showMainMenu(p *Personnage) {
 	fmt.Println(menuColor("\n                                    3. L'inventaire"))
 	fmt.Println(menuColor("\n                                    4. Le marchand"))
 	fmt.Println(menuColor("\n                                    5. Le forgeron"))
-	fmt.Println(menuColor("\n                                    6. Quitter"))
+	fmt.Println(menuColor("\n                                    6. Qui sont-ils?"))
+	fmt.Println(menuColor("\n                                    7. Quitter"))
 	fmt.Print(promptColor("Entrez votre choix : "))
 
 	var choix int
@@ -46,9 +47,23 @@ func showMainMenu(p *Personnage) {
 	case 5:
 		afficherForgeron(p)
 	case 6:
+		p.Qui()
+	case 7:
 		fmt.Println(menuColor("Au revoir!"))
 	default:
 		fmt.Println(errorColor("Choix invalide."))
+		showMainMenu(p)
+	}
+}
+func (p *Personnage) Qui() {
+	var choixqui int
+	fmt.Println("-------------------------Qui sont-ils ?----------------------------")
+	fmt.Println("Partie 2 : ABBA\n")
+	fmt.Println("Partie 3 : Steven Spielberg\n")
+	fmt.Println("0. Quitter\n")
+	fmt.Scan(&choixqui)
+	switch choixqui {
+	case 0:
 		showMainMenu(p)
 	}
 }
