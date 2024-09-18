@@ -41,7 +41,7 @@ func craftItem(p *Personnage, item string, requiredItems []string, cost int) {
 	}
 
 	for _, reqItem := range requiredItems {
-		removeInventory(p, reqItem)
+		RemoveInventory(p, reqItem)
 	}
 	p.Argent -= cost
 	addInventory(p, item)

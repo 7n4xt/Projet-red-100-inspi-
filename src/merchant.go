@@ -65,12 +65,13 @@ func acheterObjet(p *Personnage, objet string, prix int) {
 }
 
 func (p *Personnage) AugmenterInventaire() {
-	if p.NombreAmeliorations < p.AmeliorationMax {
+	if p.AmeliorationMax <= 30 && p.NombreAmeliorations <= 2 {
 		p.InventaireMax += 10
 		p.NombreAmeliorations++
+		fmt.Println(p.NombreAmeliorations)
 		fmt.Printf("La capacité d'inventaire de %s a été augmentée de 10. Capacité actuelle : %d\n", p.Nom, p.InventaireMax)
-		fmt.Printf("Nombre d'améliorations restantes : %d\n", p.AmeliorationMax - p.NombreAmeliorations)
 	} else {
 		fmt.Println("Amélioration impossible : vous avez atteint le nombre maximal d'améliorations.")
+		accessInventory(p)
 	}
 }

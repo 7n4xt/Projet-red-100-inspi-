@@ -3,32 +3,32 @@ package main
 import (
 	"fmt"
 	"strings"
+	"time"
+
 	"github.com/fatih/color"
 )
 
-// Fonction pour afficher des bordures stylisées
 func printHeader(title string) {
-	// Utilisation de symboles pour la bordure
 	fmt.Println(strings.Repeat("=", 40))
 	fmt.Printf(" %s\n", title)
 	fmt.Println(strings.Repeat("=", 40))
 }
 
 type Personnage struct {
-	Nom           string
-	Classe        string
-	Niveau        int
-	VieMax        int
-	VieActuelle   int
-	Inventaire    []string
-	Skills        []string
-	Argent        int
-	Equipement    Equipement
-	InventaireMax int
-	Spellbook     []string
-	Initiative		int
+	Nom                 string
+	Classe              string
+	Niveau              int
+	VieMax              int
+	VieActuelle         int
+	Inventaire          []string
+	Skills              []string
+	Argent              int
+	Equipement          Equipement
+	InventaireMax       int
+	Spellbook           []string
+	Initiative          int
 	NombreAmeliorations int
-	AmeliorationMax int
+	AmeliorationMax     int
 }
 
 type Equipement struct {
@@ -37,21 +37,21 @@ type Equipement struct {
 	Pieds string
 }
 
-func InitPersonnage(nom, classe string, vieMax, vieActuelle int, inventaire []string, argent int, initiative int,) Personnage {
+func InitPersonnage(nom, classe string, vieMax, vieActuelle int, inventaire []string, argent int, initiative int) Personnage {
 	return Personnage{
-		Nom:         nom,
-		Classe:      classe,
-		Niveau:      1,
-		VieMax:      vieMax,
-		VieActuelle: vieActuelle,
-		Inventaire:  inventaire,
-		Skills:      []string{"Coup de Poing"},
-		Argent:      argent,
-		Equipement:  Equipement{},
-		Initiative:	 5,
-		InventaireMax: 10,
+		Nom:                 nom,
+		Classe:              classe,
+		Niveau:              1,
+		VieMax:              vieMax,
+		VieActuelle:         vieActuelle,
+		Inventaire:          inventaire,
+		Skills:              []string{"Coup de Poing"},
+		Argent:              argent,
+		Equipement:          Equipement{},
+		Initiative:          5,
+		InventaireMax:       10,
 		NombreAmeliorations: 0,
-		AmeliorationMax: 3,
+		AmeliorationMax:     3,
 	}
 }
 
@@ -63,17 +63,17 @@ func afficherInfosPersonnage(p *Personnage) {
 	green := color.New(color.FgGreen).SprintFunc()
 	yellow := color.New(color.FgYellow).SprintFunc()
 
-	fmt.Println("%s : %s\n", blue("=== INFORMATIONS DU PERSONNAGE ==="), yellow(p.Nom))
+	fmt.Println(blue("=== INFORMATIONS DU PERSONNAGE ==="), yellow(p.Nom))
 	fmt.Printf("%s : %s\n", blue("Nom"), yellow(p.Nom))
 	fmt.Printf("%s : %s\n", blue("Classe"), yellow(p.Classe))
 	fmt.Printf("%s : %d\n", blue("Niveau"), p.Niveau)
-	fmt.Printf("%s : %s%d/%d\n", red("Points de Vie"), green(p.VieActuelle), p.VieMax)
-	fmt.Println("%s :%s\n", blue("Inventaire:"), yellow(p.Inventaire))
+	fmt.Printf("%s : %s%d/\n", red("Points de Vie"), green(p.VieActuelle), p.VieMax)
+	fmt.Println(blue("Inventaire:"), yellow(p.Inventaire))
 	fmt.Printf("%s : %d\n", blue("Capacité d'Inventaire"), p.InventaireMax)
 	fmt.Printf("%s : %d pièces d'or\n", blue("Argent"), p.Argent)
 	fmt.Printf("%s : %d\n", blue("Initiative"), p.Initiative)
-fmt.Println("%s : %s\n", blue("Nombre d'améloration d'inventaire"), yellow (p.NombreAmeliorations))
-fmt.Println("\nEntrez '0' pour revenir au menu.")
+	fmt.Println(blue("Nombre d'améloration d'inventaire"), yellow(p.NombreAmeliorations))
+	fmt.Println("\nEntrez '0' pour revenir au menu.")
 	fmt.Println(strings.Repeat("-", 40))
 
 	var choix int
@@ -89,10 +89,29 @@ fmt.Println("\nEntrez '0' pour revenir au menu.")
 	}
 }
 
+func IsLetter(s string) bool {
+	if len(s) == 0 {
+		return true
+	} else {
+		for _, cara := range s {
+			if !(rune('a') <= cara && cara <= rune('z') || rune('A') <= cara && cara <= rune('Z')) {
+				return false
+			}
+		}
+		return true
+	}
+}
+
 func charCreation() Personnage {
 	var nom, classe string
 	fmt.Print("Entrez le nom de votre personnage (uniquement des lettres) : ")
 	fmt.Scanln(&nom)
+
+	if !IsLetter(nom) || len(nom) < 3 {
+		fmt.Println("Nom invalide : raison -> taille insuffisante ou non respect des regles")
+		time.Sleep(2 * time.Second)
+		charCreation()
+	}
 
 	nom = strings.Title(strings.ToLower(nom))
 

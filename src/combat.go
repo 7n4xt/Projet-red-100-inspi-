@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand/v2"
 )
 
 type Gobelin struct {
@@ -23,7 +24,7 @@ func InitGobelin() Gobelin {
 }
 
 func (g *Gobelin) Attaque() int {
-	return g.PointsAttaque
+	return g.PointsAttaque + rand.IntN(10)
 }
 
 func (g *Gobelin) RecevoirDegats(degats int) {
@@ -91,9 +92,12 @@ func startCombatTraining(p *Personnage) {
 		gobelinAttaque(p, &gobelin)
 		if p.VieActuelle <= 0 {
 			fmt.Println("Vous avez été vaincu par le", gobelin.Nom)
+			fmt.Println("vous etes ressuscité avec 50% De vos points de vie maximum.")
+			p.VieActuelle /= p.VieMax
 			break
 		}
 	}
 
 	fmt.Println("Combat terminé!")
+	showMainMenu(p)
 }

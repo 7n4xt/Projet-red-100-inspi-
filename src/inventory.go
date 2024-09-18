@@ -6,7 +6,6 @@ import (
 )
 
 func accessInventory(p *Personnage) {
-
 	fmt.Println("=== INVENTAIRE ===")
 	if len(p.Inventaire) == 0 {
 		fmt.Println("L'inventaire est vide.")
@@ -28,19 +27,37 @@ func accessInventory(p *Personnage) {
 		case "Potion de vie":
 			takePot(p)
 			accessInventory(p)
+			RemoveInventory(p, "Potion de vie")
 		case "Potion de poison":
 			poisonPot(p)
 			accessInventory(p)
+			RemoveInventory(p, "Potion de poison")
 		case "Livre de Sort : Boule de Feu":
 			addSpell(p, "Boule de Feu")
+			RemoveInventory(p, "Livre de Sort : Boule de Feu")
 			accessInventory(p)
-		case "Amelioration d'inventaire(10)" :
+		case "Amelioration d'inventaire(10)":
 			p.AugmenterInventaire()
+			RemoveInventory(p, "Amelioration d'inventaire(10)")
+			accessInventory(p)
+		case "Chapeau de l’aventurier":
+			equipItem(p, item)
+			accessInventory(p)
+			RemoveInventory(p, "Chapeau de l’aventurier")
+		case "Tunique de l’aventurier":
+			equipItem(p, item)
+			accessInventory(p)
+			RemoveInventory(p, "Tunique de l’aventurier")
+		case "Bottes de l’aventurier":
+			equipItem(p, item)
+			accessInventory(p)
+			RemoveInventory(p, "Bottes de l’aventurier")
 		default:
 			fmt.Println("Objet non reconnu.")
 			accessInventory(p)
 		}
 	}
+	accessInventory(p)
 }
 func accessInventoryCombat(p *Personnage, gobelin *Gobelin) {
 	fmt.Println("=== INVENTAIRE ===")
@@ -56,7 +73,7 @@ func accessInventoryCombat(p *Personnage, gobelin *Gobelin) {
 	var choix int
 	fmt.Scan(&choix)
 	if choix == 0 {
-		startCombatTraining(p)
+		playerAction(p, gobelin)
 	}
 	if choix > 0 && choix <= len(p.Inventaire) {
 		item := p.Inventaire[choix-1]
@@ -64,12 +81,32 @@ func accessInventoryCombat(p *Personnage, gobelin *Gobelin) {
 		case "Potion de vie":
 			takePot(p)
 			accessInventoryCombat(p, gobelin)
+			accessInventory(p)
+			RemoveInventory(p, "Potion de vie")
 		case "Potion de poison":
 			poisonPot(p)
 			accessInventoryCombat(p, gobelin)
+			RemoveInventory(p, "Potion de poison")
 		case "Livre de Sort : Boule de Feu":
 			addSpell(p, "Boule de Feu")
 			accessInventoryCombat(p, gobelin)
+			RemoveInventory(p, "Livre de Sort : Boule de Feu")
+		case "Amelioration d'inventaire(10)":
+			p.AugmenterInventaire()
+			accessInventoryCombat(p, gobelin)
+			RemoveInventory(p, "Amelioration d'inventaire(10)")
+		case "Chapeau de l’aventurier":
+			equipItem(p, item)
+			accessInventoryCombat(p, gobelin)
+			RemoveInventory(p, "Chapeau de l’aventurier")
+		case "Tunique de l’aventurier":
+			equipItem(p, item)
+			accessInventoryCombat(p, gobelin)
+			RemoveInventory(p, "Tunique de l’aventurier")
+		case "Bottes de l’aventurier":
+			equipItem(p, item)
+			accessInventoryCombat(p, gobelin)
+			RemoveInventory(p, "Bottes de l’aventurier")
 		default:
 			fmt.Println("Objet non reconnu.")
 			return
@@ -114,7 +151,7 @@ func addInventory(p *Personnage, item string) {
 		fmt.Println("Votre inventaire est plein. Vous ne pouvez plus ajouter d'items.")
 	}
 }
-func removeInventory(p *Personnage, item string) {
+func RemoveInventory(p *Personnage, item string) {
 	for i, invItem := range p.Inventaire {
 		if invItem == item {
 			p.Inventaire = append(p.Inventaire[:i], p.Inventaire[i+1:]...)
@@ -142,6 +179,6 @@ func equipItem(p *Personnage, item string) {
 		fmt.Println("Cet équipement ne peut pas être équipé.")
 	}
 
-	removeInventory(p, item)
+	RemoveInventory(p, item)
 	fmt.Printf("Vous avez %d/%d PV.\n", p.VieActuelle, p.VieMax)
 }
