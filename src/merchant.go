@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func afficherMarchand(p *Personnage) {
 	fmt.Printf("\n                           Or = %d ", p.Argent)
@@ -12,14 +14,14 @@ func afficherMarchand(p *Personnage) {
 	fmt.Println("\n                                    5. Peau de Troll (7 pièces d'or)")
 	fmt.Println("\n                                    6. Cuir de Sanglier (3 pièces d'or)")
 	fmt.Println("\n                                    7. Plume de Corbeau (1 pièce d'or)")
-	fmt.Println("\n                                    8. Augementer de 10 la taille de l'inventaire (30 pièces d'or)")
+	fmt.Println("\n                                    8. Augmenter de 10 la taille de l'inventaire (30 pièces d'or)")
 	fmt.Println("\n                                    9. Quitter")
 	fmt.Print("Entrez votre choix : ")
 
 	var choix int
 	_, err := fmt.Scan(&choix)
-	if err != nil {
-		fmt.Println("Erreur de saisie. Veuillez entrer un nombre.")
+	if err != nil || choix < 1 || choix > 9 {
+		fmt.Println("Erreur de saisie. Veuillez entrer un nombre valide.")
 		afficherMarchand(p)
 		return
 	}
@@ -40,28 +42,32 @@ func afficherMarchand(p *Personnage) {
 	case 7:
 		acheterObjet(p, "Plume de Corbeau", 1)
 	case 8:
-		acheterObjet(p, "Amelioration d'inventaire(10)", 30)
+		if p.Argent >= 30 {
+			p.AugmenterInventaire()
+			p.Argent -= 30
+		} else {
+			fmt.Println("Vous n'avez pas assez d'or pour augmenter la taille de l'inventaire.")
+		}
 	case 9:
 		fmt.Println("Vous quittez le marchand.")
 		showMainMenu(p)
-	default:
-		fmt.Println("Choix invalide. Veuillez réessayer.")
-		afficherMarchand(p)
 	}
 }
 
 func acheterObjet(p *Personnage, objet string, prix int) {
 	if p.Argent >= prix {
-		p.Inventaire = append(p.Inventaire, objet)
-		p.Argent -= prix
-		fmt.Printf("Vous avez ajouté %s à votre inventaire.\n", objet)
-		fmt.Printf("Vous avez acheté %s pour %d pièces d'or.\n", objet, prix)
-		afficherMarchand(p)
+		if len(p.Inventaire) < p.InventaireMax {
+			p.Inventaire = append(p.Inventaire, objet)
+			p.Argent -= prix
+			fmt.Printf("Vous avez ajouté %s à votre inventaire.\n", objet)
+			fmt.Printf("Vous avez acheté %s pour %d pièces d'or.\n", objet, prix)
+		} else {
+			fmt.Println("Votre inventaire est plein. Vous ne pouvez plus ajouter d'objets.")
+		}
 	} else {
 		fmt.Println("Vous n'avez pas assez d'or pour acheter cet objet.")
-		afficherForgeron(p)
-
 	}
+	afficherMarchand(p) // Affiche le menu marchand après chaque achat
 }
 
 func (p *Personnage) AugmenterInventaire() {

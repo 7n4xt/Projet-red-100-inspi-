@@ -1,16 +1,25 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/fatih/color"
+)
 
 func afficherForgeron(p *Personnage) {
-	fmt.Printf("\n                           Or = %d ", p.Argent)
-	fmt.Println("\n                                                                     === Forgeron ===")
-	fmt.Println("\n                                    1. Chapeau de l’aventurier (1 Plume de Corbeau, 1 Cuir de Sanglier, 5 pièces d'or)")
-	fmt.Println("\n                                    2. Tunique de l’aventurier (2 Fourrure de Loup, 1 Peau de Troll, 5 pièces d'or)")
-	fmt.Println("\n                                    3. Bottes de l’aventurier (1 Fourrure de Loup, 1 Cuir de Sanglier, 5 pièces d'or)")
-	fmt.Println("\n                                   4. Quitter")
+	yellow := color.New(color.FgYellow).SprintFunc()
+	blue := color.New(color.FgBlue).SprintFunc()
+	red := color.New(color.FgRed).SprintFunc()
+	green := color.New(color.FgGreen).SprintFunc()
+
+	fmt.Printf("\n                           Or = %s ", yellow(p.Argent))
+	fmt.Println(blue("\n                                                                     === Forgeron ==="))
+	fmt.Println(green("\n                                    1. Chapeau de l’aventurier (1 Plume de Corbeau, 1 Cuir de Sanglier, 5 pièces d'or)"))
+	fmt.Println(green("\n                                    2. Tunique de l’aventurier (2 Fourrure de Loup, 1 Peau de Troll, 5 pièces d'or)"))
+	fmt.Println(green("\n                                    3. Bottes de l’aventurier (1 Fourrure de Loup, 1 Cuir de Sanglier, 5 pièces d'or)"))
+	fmt.Println(blue("\n                                   4. Quitter"))
 
 	var choix int
+	fmt.Print(blue("Entrez votre choix : "))
 	fmt.Scan(&choix)
 
 	switch choix {
@@ -23,20 +32,26 @@ func afficherForgeron(p *Personnage) {
 	case 4:
 		showMainMenu(p)
 	default:
-		fmt.Println("Choix invalide.")
+		fmt.Println(red("Choix invalide."))
+		afficherForgeron(p)
 	}
 }
 
 func craftItem(p *Personnage, item string, requiredItems []string, cost int) {
+	red := color.New(color.FgRed).SprintFunc()
+	green := color.New(color.FgGreen).SprintFunc()
+	yellow := color.New(color.FgYellow).SprintFunc()
+
 	if p.Argent < cost {
-		fmt.Println("Vous n'avez pas assez d'or.")
+		fmt.Println(red("Vous n'avez pas assez d'or."))
 		return
 	}
 
 	for _, reqItem := range requiredItems {
 		if !contains(p.Inventaire, reqItem) {
-			fmt.Printf("Vous n'avez pas %s pour fabriquer %s.\n", reqItem, item)
+			fmt.Printf(red("Vous n'avez pas %s pour fabriquer %s.\n"), yellow(reqItem), green(item))
 			afficherForgeron(p)
+			return
 		}
 	}
 
@@ -45,7 +60,8 @@ func craftItem(p *Personnage, item string, requiredItems []string, cost int) {
 	}
 	p.Argent -= cost
 	addInventory(p, item)
-	fmt.Printf("Vous avez fabriqué %s. Il vous reste %d pièces d'or.\n", item, p.Argent)
+	fmt.Printf(green("Vous avez fabriqué %s. "), yellow(item))
+	fmt.Printf("Il vous reste %s pièces d'or.\n", yellow(p.Argent))
 	afficherForgeron(p)
 }
 

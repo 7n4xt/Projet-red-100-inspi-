@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/fatih/color"
 	"math/rand/v2"
 )
 
@@ -35,28 +36,36 @@ func (g *Gobelin) RecevoirDegats(degats int) {
 }
 
 func attaquer(gobelin *Gobelin) {
+	red := color.New(color.FgRed).SprintFunc()
+	yellow := color.New(color.FgYellow).SprintFunc()
+
 	damages := 8
 	gobelin.RecevoirDegats(damages)
-	fmt.Printf("Vous attaquez le %s pour %d dégâts par un coup de poing!\n", gobelin.Nom, damages)
+	fmt.Printf(red("Vous attaquez le %s pour %d dégâts par un coup de poing!\n"), yellow(gobelin.Nom), damages)
 }
 
 func gobelinAttaque(p *Personnage, gobelin *Gobelin) {
+	red := color.New(color.FgRed).SprintFunc()
+	yellow := color.New(color.FgYellow).SprintFunc()
+	green := color.New(color.FgGreen).SprintFunc()
+
 	degats := gobelin.Attaque()
 	p.VieActuelle -= degats
 	if p.VieActuelle < 0 {
 		p.VieActuelle = 0
 	}
-	fmt.Printf("Le %s vous attaque pour %d dégâts!\n", gobelin.Nom, degats)
-	fmt.Printf("Vous avez %d PV restants.\n", p.VieActuelle)
+	fmt.Printf(red("Le %s vous attaque pour %d dégâts!\n"), yellow(gobelin.Nom), degats)
+	fmt.Printf(green("Vous avez %d PV restants.\n"), p.VieActuelle)
 }
 
 func playerAction(p *Personnage, gobelin *Gobelin) {
-	fmt.Println("C'est votre tour!")
-	fmt.Println("1. Attaquer")
-	fmt.Println("2. inventaire")
-	fmt.Println("3. Utiliser un sort")
-	fmt.Println("4. quittez le combat")
-	fmt.Print("Entrez votre choix : ")
+	blue := color.New(color.FgBlue).SprintFunc()
+	fmt.Println(blue("C'est votre tour!"))
+	fmt.Println(blue("1. Attaquer"))
+	fmt.Println(blue("2. Inventaire"))
+	fmt.Println(blue("3. Utiliser un sort"))
+	fmt.Println(blue("4. Quittez le combat"))
+	fmt.Print(blue("Entrez votre choix : "))
 
 	var choix int
 	fmt.Scan(&choix)
@@ -71,21 +80,25 @@ func playerAction(p *Personnage, gobelin *Gobelin) {
 	case 4:
 		showMainMenu(p)
 	default:
-		fmt.Println("Choix invalide.")
+		fmt.Println(color.RedString("Choix invalide."))
 	}
 
-	fmt.Printf("Le %s a %d/%d PV restants.\n", gobelin.Nom, gobelin.VieActuelle, gobelin.VieMax)
+	yellow := color.New(color.FgYellow).SprintFunc()
+	green := color.New(color.FgGreen).SprintFunc()
+	fmt.Printf("Le %s a %s/%s PV restants.\n", yellow(gobelin.Nom), green(gobelin.VieActuelle), green(gobelin.VieMax))
 }
 
 func startCombatTraining(p *Personnage) {
+	green := color.New(color.FgGreen).SprintFunc()
+	red := color.New(color.FgRed).SprintFunc()
+
 	gobelin := InitGobelin()
-	fmt.Println("Le combat commence contre le", gobelin.Nom)
+	fmt.Println(green("Le combat commence contre le"), red(gobelin.Nom))
 
 	for gobelin.VieActuelle > 0 && p.VieActuelle > 0 {
-
 		playerAction(p, &gobelin)
 		if gobelin.VieActuelle <= 0 {
-			fmt.Println("Vous avez vaincu le", gobelin.Nom)
+			fmt.Println(green("Vous avez vaincu le"), red(gobelin.Nom))
 			break
 		}
 

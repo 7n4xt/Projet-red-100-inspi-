@@ -1,26 +1,38 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
+
+// Séquences d'échappement ANSI pour les couleurs
+const (
+	Reset  = "\033[0m"
+	Red    = "\033[31m"
+	Green  = "\033[32m"
+	Yellow = "\033[33m"
+	Blue   = "\033[34m"
+	Cyan   = "\033[36m"
+)
 
 func addSpell(p *Personnage, spell string) {
 	for _, s := range p.Spellbook {
 		if s == spell {
-			fmt.Println("Le sort est déjà appris.")
+			fmt.Println(Yellow + "Le sort est déjà appris." + Reset)
 			return
 		}
 	}
 	p.Spellbook = append(p.Spellbook, spell)
-	fmt.Printf("Sort '%s' ajouté au livre de sorts.\n", spell)
+	fmt.Printf(Green+"Sort '%s' ajouté au livre de sorts.\n"+Reset, spell)
 }
 
 func viewSpellbook(p *Personnage, goblin *Gobelin) {
-	fmt.Println("=== LIVRE DE SORTS ===")
+	fmt.Println(Cyan + "=== LIVRE DE SORTS ===" + Reset)
 	if len(p.Spellbook) == 0 {
-		fmt.Println("Aucun sort appris pour le moment.")
+		fmt.Println(Yellow + "Aucun sort appris pour le moment." + Reset)
 		return
 	} else {
 		for i, spell := range p.Spellbook {
-			fmt.Printf("%d. %s\n", i+1, spell)
+			fmt.Printf(Green+"%d. %s\n"+Reset, i+1, spell)
 		}
 	}
 
@@ -34,7 +46,7 @@ func viewSpellbook(p *Personnage, goblin *Gobelin) {
 		selectedSpell := p.Spellbook[choix-1]
 		useSpellInCombat(p, goblin, selectedSpell)
 	} else {
-		fmt.Println("Choix invalide.")
+		fmt.Println(Red + "Choix invalide." + Reset)
 		viewSpellbook(p, goblin)
 	}
 }
@@ -42,14 +54,14 @@ func viewSpellbook(p *Personnage, goblin *Gobelin) {
 func useSpellInCombat(p *Personnage, goblin *Gobelin, s string) {
 	switch s {
 	case "Boule de Feu":
-		fmt.Printf("%s lance %s et inflige 18 dégâts à %s!\n", p.Nom, s, goblin.Nom)
+		fmt.Printf(Blue+"%s lance %s et inflige "+Red+"18 dégâts "+Reset+"à %s!\n", p.Nom, s, goblin.Nom)
 		goblin.VieActuelle -= 18
 		if goblin.VieActuelle < 0 {
 			goblin.VieActuelle = 0
 		}
-		fmt.Printf("%s : PV restants %d/%d\n", goblin.Nom, goblin.VieActuelle, goblin.VieMax)
+		fmt.Printf(Red+"%s : PV restants %d/%d\n"+Reset, goblin.Nom, goblin.VieActuelle, goblin.VieMax)
 	default:
-		fmt.Println("Sort inconnu.")
+		fmt.Println(Red + "Sort inconnu." + Reset)
 		startCombatTraining(p)
 	}
 }
