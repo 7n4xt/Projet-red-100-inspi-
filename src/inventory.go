@@ -34,6 +34,8 @@ func accessInventory(p *Personnage) {
 		case "Livre de Sort : Boule de Feu":
 			addSpell(p, "Boule de Feu")
 			accessInventory(p)
+		case "Amelioration d'inventaire(10)" :
+			p.AugmenterInventaire()
 		default:
 			fmt.Println("Objet non reconnu.")
 			accessInventory(p)

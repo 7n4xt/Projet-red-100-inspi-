@@ -116,6 +116,6 @@ func charCreation() Personnage {
 		p = Personnage{Nom: nom, VieMax: 100, VieActuelle: 100, InventaireMax: 10, Argent: 200}
 	}
 
-	fmt.Printf("Bonjour %s \n", p.Nom)
+	fmt.Printf("Personnage %s créé avec succès!\n", p.Nom)
 	return p
 }
