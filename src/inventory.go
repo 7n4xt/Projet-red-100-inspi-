@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/fatih/color"
 	"time"
+
+	"github.com/fatih/color"
 )
 
 func accessInventory(p *Personnage) {
-	fmt.Println("=== INVENTAIRE ===")
 	yellow := color.New(color.FgYellow).SprintFunc()
 	red := color.New(color.FgRed).SprintFunc()
+	green := color.New(color.FgGreen).SprintFunc()
 
 	fmt.Println(yellow("=== INVENTAIRE ==="))
 	if len(p.Inventaire) == 0 {
@@ -20,15 +21,31 @@ func accessInventory(p *Personnage) {
 		}
 	}
 
-	fmt.Println(yellow("Choisissez un objet à utiliser ou entrez 0 pour revenir au menu."))
-	var choix int
+	fmt.Println(yellow("Choisissez un objet à utiliser, entrez 'p' pour obtenir une Potion de vie gratuite, ou entrez 0 pour revenir au menu."))
+	var choix string
 	fmt.Scan(&choix)
-	if choix == 0 {
+
+	if choix == "0" {
 		showMainMenu(p)
 		return
 	}
-	if choix > 0 && choix <= len(p.Inventaire) {
-		item := p.Inventaire[choix-1]
+
+	if choix == "p" {
+		if len(p.Inventaire) < p.InventaireMax {
+			addInventory(p, "Potion de vie")
+			fmt.Println(green("Vous avez reçu une Potion de vie gratuite!"))
+		} else {
+			fmt.Println(red("Votre inventaire est plein. Vous ne pouvez pas recevoir la Potion de vie gratuite."))
+		}
+		accessInventory(p)
+		return
+	}
+
+	choixInt := 0
+	fmt.Sscan(choix, &choixInt)
+
+	if choixInt > 0 && choixInt <= len(p.Inventaire) {
+		item := p.Inventaire[choixInt-1]
 		switch item {
 		case "Potion de vie":
 			takePot(p)
@@ -46,18 +63,18 @@ func accessInventory(p *Personnage) {
 			p.AugmenterInventaire()
 			RemoveInventory(p, "Amelioration d'inventaire(10)")
 			accessInventory(p)
-		case "Chapeau de l’aventurier":
+		case "Chapeau de l'aventurier":
 			equipItem(p, item)
 			accessInventory(p)
-			RemoveInventory(p, "Chapeau de l’aventurier")
-		case "Tunique de l’aventurier":
+			RemoveInventory(p, "Chapeau de l'aventurier")
+		case "Tunique de l'aventurier":
 			equipItem(p, item)
 			accessInventory(p)
-			RemoveInventory(p, "Tunique de l’aventurier")
-		case "Bottes de l’aventurier":
+			RemoveInventory(p, "Tunique de l'aventurier")
+		case "Bottes de l'aventurier":
 			equipItem(p, item)
 			accessInventory(p)
-			RemoveInventory(p, "Bottes de l’aventurier")
+			RemoveInventory(p, "Bottes de l'aventurier")
 		default:
 			fmt.Println(red("Objet non reconnu."))
 			accessInventory(p)
@@ -146,7 +163,7 @@ func takePot(p *Personnage) {
 				fmt.Printf(green("Vie actuelle: %d/%d\n"), p.VieActuelle, p.VieMax)
 				return
 			} else {
-				fmt.Println(green("Vous avez déjà tous vos points de vie."))
+				fmt.Println(red("Vous avez déjà tous vos points de vie."))
 				return
 			}
 		}
@@ -156,6 +173,7 @@ func takePot(p *Personnage) {
 
 func poisonPot(p *Personnage) {
 	red := color.New(color.FgRed).SprintFunc()
+	green := color.New(color.FgGreen).SprintFunc()
 
 	fmt.Println(red("Vous avez utilisé une potion de poison. Vous subirez 10 points de dégâts chaque seconde pendant 3 secondes."))
 	for i := 0; i < 3; i++ {
@@ -163,7 +181,7 @@ func poisonPot(p *Personnage) {
 		if p.VieActuelle < 0 {
 			p.VieActuelle = 0
 		}
-		fmt.Printf(red("Vous avez %d/%d PV.\n"), p.VieActuelle, p.VieMax)
+		fmt.Printf(green("Vous avez %d/%d PV.\n"), p.VieActuelle, p.VieMax)
 		time.Sleep(1 * time.Second)
 	}
 }

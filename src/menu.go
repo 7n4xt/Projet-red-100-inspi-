@@ -23,18 +23,21 @@ func showMainMenu(p *Personnage) {
                                                                        \/_/`))
 
 	fmt.Println(menuColor("\n                                        === Menu Principal ==="))
-	fmt.Println(menuColor("\n                                    1. Entraînement au combat"))
+	fmt.Println(menuColor("\n                                    1. Jouer"))
 	fmt.Println(menuColor("\n                                    2. Les statistiques du personnage"))
 	fmt.Println(menuColor("\n                                    3. L'inventaire"))
 	fmt.Println(menuColor("\n                                    4. Le marchand"))
 	fmt.Println(menuColor("\n                                    5. Le forgeron"))
 	fmt.Println(menuColor("\n                                    6. Qui sont-ils?"))
-	fmt.Println(menuColor("\n                                    7. Quitter"))
+	fmt.Println(menuColor("\n                                    0. Quitter"))
 	fmt.Print(promptColor("Entrez votre choix : "))
 
 	var choix int
 	fmt.Scan(&choix)
-
+	if choix == 0 {
+		fmt.Println(menuColor("Au revoir!"))
+		return
+	}
 	switch choix {
 	case 1:
 		startCombatTraining(p)
@@ -48,8 +51,7 @@ func showMainMenu(p *Personnage) {
 		afficherForgeron(p)
 	case 6:
 		p.Qui()
-	case 7:
-		fmt.Println(menuColor("Au revoir!"))
+
 	default:
 		fmt.Println(errorColor("Choix invalide."))
 		showMainMenu(p)

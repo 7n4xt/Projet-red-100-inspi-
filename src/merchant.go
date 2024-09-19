@@ -15,11 +15,15 @@ func afficherMarchand(p *Personnage) {
 	fmt.Println("\n                                    6. Cuir de Sanglier (3 pièces d'or)")
 	fmt.Println("\n                                    7. Plume de Corbeau (1 pièce d'or)")
 	fmt.Println("\n                                    8. Augmenter de 10 la taille de l'inventaire (30 pièces d'or)")
-	fmt.Println("\n                                    9. Quitter")
+	fmt.Println("\n                                    0. Quitter")
 	fmt.Print("Entrez votre choix : ")
 
 	var choix int
 	_, err := fmt.Scan(&choix)
+	if choix == 0 {
+		fmt.Println("Vous quittez le marchand.")
+		showMainMenu(p)
+	}
 	if err != nil || choix < 1 || choix > 9 {
 		fmt.Println("Erreur de saisie. Veuillez entrer un nombre valide.")
 		afficherMarchand(p)
@@ -48,9 +52,7 @@ func afficherMarchand(p *Personnage) {
 		} else {
 			fmt.Println("Vous n'avez pas assez d'or pour augmenter la taille de l'inventaire.")
 		}
-	case 9:
-		fmt.Println("Vous quittez le marchand.")
-		showMainMenu(p)
+
 	}
 }
 

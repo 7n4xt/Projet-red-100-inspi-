@@ -2,25 +2,28 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/fatih/color"
 )
 
 func afficherForgeron(p *Personnage) {
 	yellow := color.New(color.FgYellow).SprintFunc()
-	blue := color.New(color.FgBlue).SprintFunc()
 	red := color.New(color.FgRed).SprintFunc()
 	green := color.New(color.FgGreen).SprintFunc()
 
 	fmt.Printf("\n                           Or = %s ", yellow(p.Argent))
-	fmt.Println(blue("\n                                                                     === Forgeron ==="))
+	fmt.Println(green("\n                                                                     === Forgeron ==="))
 	fmt.Println(green("\n                                    1. Chapeau de l’aventurier (1 Plume de Corbeau, 1 Cuir de Sanglier, 5 pièces d'or)"))
 	fmt.Println(green("\n                                    2. Tunique de l’aventurier (2 Fourrure de Loup, 1 Peau de Troll, 5 pièces d'or)"))
 	fmt.Println(green("\n                                    3. Bottes de l’aventurier (1 Fourrure de Loup, 1 Cuir de Sanglier, 5 pièces d'or)"))
-	fmt.Println(blue("\n                                   4. Quitter"))
+	fmt.Println(green("\n                                    0. Quitter"))
 
 	var choix int
-	fmt.Print(blue("Entrez votre choix : "))
+	fmt.Print(green("Entrez votre choix : "))
 	fmt.Scan(&choix)
+	if choix == 0 {
+		showMainMenu(p)
+	}
 
 	switch choix {
 	case 1:
@@ -29,7 +32,7 @@ func afficherForgeron(p *Personnage) {
 		craftItem(p, "Tunique de l’aventurier", []string{"Fourrure de Loup", "Fourrure de Loup", "Peau de Troll"}, 5)
 	case 3:
 		craftItem(p, "Bottes de l’aventurier", []string{"Fourrure de Loup", "Cuir de Sanglier"}, 5)
-	case 4:
+	case 0:
 		showMainMenu(p)
 	default:
 		fmt.Println(red("Choix invalide."))

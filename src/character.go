@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/fatih/color"
 	"strings"
 	"time"
+
+	"github.com/fatih/color"
 )
 
 func Colormyprint(s string, colors string) {
@@ -81,14 +82,14 @@ func afficherInfosPersonnage(p *Personnage) {
 	green := color.New(color.FgGreen).SprintFunc()
 	yellow := color.New(color.FgYellow).SprintFunc()
 
-	fmt.Println("%s : %s\n", blue("=== INFORMATIONS DU PERSONNAGE ==="), yellow(p.Nom))
-	fmt.Printf("%s : %s\n", blue("Nom"), yellow(p.Nom))
-	fmt.Printf("%s : %s\n", blue("Classe"), yellow(p.Classe))
-	fmt.Printf("%s : %d\n", blue("Niveau"), p.Niveau)
+	fmt.Println("\n", yellow("=== INFORMATIONS DU PERSONNAGE ==="), yellow(p.Nom))
+	fmt.Printf("%s : %s\n", green("Nom"), yellow(p.Nom))
+	fmt.Printf("%s : %s\n", green("Classe"), yellow(p.Classe))
+	fmt.Printf("%s : %d\n", green("Niveau"), p.Niveau)
 	fmt.Printf("%s : %s%d/%d\n", red("Points de Vie"), green(p.VieActuelle), p.VieMax)
-	fmt.Println("%s :%s\n", blue("Inventaire:"), yellow(p.Inventaire))
-	fmt.Printf("%s : %d\n", blue("Capacité d'Inventaire"), p.InventaireMax)
-	fmt.Printf("%s : %d pièces d'or\n", blue("Argent"), p.Argent)
+	fmt.Println("%s :%s\n", green("Inventaire:"), yellow(p.Inventaire))
+	fmt.Printf("%s : %d\n", green("Capacité d'Inventaire"), p.InventaireMax)
+	fmt.Printf("%s : %d pièces d'or\n", yellow("Argent"), p.Argent)
 	fmt.Printf("%s : %d\n", blue("Initiative"), p.Initiative)
 	fmt.Println("%s : %s\n", blue("Nombre d'améloration d'inventaire"), yellow(p.NombreAmeliorations))
 	fmt.Println("\nEntrez '0' pour revenir au menu.")
@@ -147,14 +148,14 @@ func charCreation() Personnage {
 	var p Personnage
 	switch classe {
 	case "1":
-		p = Personnage{Nom: nom, Classe: "Golem", VieMax: 100, VieActuelle: 100, InventaireMax: 10, Argent: 200}
+		p = Personnage{Nom: nom, Classe: "Golem", VieMax: 100, VieActuelle: 50, InventaireMax: 10, Argent: 100, Initiative: 3}
 	case "2":
-		p = Personnage{Nom: nom, Classe: "Sorcier", VieMax: 80, VieActuelle: 80, InventaireMax: 10, Argent: 200}
+		p = Personnage{Nom: nom, Classe: "Sorcier", VieMax: 80, VieActuelle: 40, InventaireMax: 10, Argent: 100, Initiative: 10}
 	case "3":
-		p = Personnage{Nom: nom, Classe: "Démon", VieMax: 120, VieActuelle: 120, InventaireMax: 10, Argent: 200}
+		p = Personnage{Nom: nom, Classe: "Démon", VieMax: 120, VieActuelle: 60, InventaireMax: 10, Argent: 100, Initiative: 5}
 	default:
 		Colormyprint("Classe invalide, Golem choisi par défaut.", "red")
-		p = Personnage{Nom: nom, Classe: "Golem", VieMax: 100, VieActuelle: 100, InventaireMax: 10, Argent: 200}
+		p = Personnage{Nom: nom, Classe: "Golem", VieMax: 100, VieActuelle: 100, InventaireMax: 10, Argent: 100, Initiative: 3}
 	}
 	fmt.Println(green("Personnage"), yellow(p.Nom), blue(" créé avec succès!\n"))
 	return p

@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/fatih/color"
 	"math/rand/v2"
+
+	"github.com/fatih/color"
 )
 
 type Gobelin struct {
@@ -16,7 +17,7 @@ type Gobelin struct {
 
 func InitGobelin() Gobelin {
 	return Gobelin{
-		Nom:           "Gobelin d'entraînement",
+		Nom:           "Gobelin",
 		VieMax:        40,
 		VieActuelle:   40,
 		PointsAttaque: 5,
@@ -59,13 +60,14 @@ func gobelinAttaque(p *Personnage, gobelin *Gobelin) {
 }
 
 func playerAction(p *Personnage, gobelin *Gobelin) {
-	blue := color.New(color.FgBlue).SprintFunc()
-	fmt.Println(blue("C'est votre tour!"))
-	fmt.Println(blue("1. Attaquer"))
-	fmt.Println(blue("2. Inventaire"))
-	fmt.Println(blue("3. Utiliser un sort"))
-	fmt.Println(blue("4. Quittez le combat"))
-	fmt.Print(blue("Entrez votre choix : "))
+	green := color.New(color.FgGreen).SprintFunc()
+	yellow := color.New(color.FgYellow).SprintFunc()
+	fmt.Println(green("C'est votre tour!"))
+	fmt.Println(green("1. Attaquer"))
+	fmt.Println(green("2. Inventaire"))
+	fmt.Println(green("3. Utiliser un sort"))
+	fmt.Println(green("0. Quittez le combat"))
+	fmt.Print(yellow("Entrez votre choix : "))
 
 	var choix int
 	fmt.Scan(&choix)
@@ -83,8 +85,6 @@ func playerAction(p *Personnage, gobelin *Gobelin) {
 		fmt.Println(color.RedString("Choix invalide."))
 	}
 
-	yellow := color.New(color.FgYellow).SprintFunc()
-	green := color.New(color.FgGreen).SprintFunc()
 	fmt.Printf("Le %s a %s/%s PV restants.\n", yellow(gobelin.Nom), green(gobelin.VieActuelle), green(gobelin.VieMax))
 }
 
@@ -104,8 +104,8 @@ func startCombatTraining(p *Personnage) {
 
 		gobelinAttaque(p, &gobelin)
 		if p.VieActuelle <= 0 {
-			fmt.Println("Vous avez été vaincu par le", gobelin.Nom)
-			fmt.Println("vous etes ressuscité avec 50% De vos points de vie maximum.")
+			fmt.Println(red("Vous avez été vaincu par le"), gobelin.Nom)
+			fmt.Println(green("vous etes ressuscité avec 50% De vos points de vie maximum."))
 			p.VieActuelle /= p.VieMax
 			break
 		}
