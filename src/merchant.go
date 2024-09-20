@@ -11,7 +11,7 @@ func afficherMarchand(p *Personnage) {
 	yellow := color.New(color.FgYellow).SprintFunc()
 	red := color.New(color.FgRed).SprintFunc()
 	green := color.New(color.FgGreen).SprintFunc()
-	fmt.Printf(yellow("\n                           Or = %d ", p.Argent))
+	fmt.Printf(yellow("\n                           Or = %d", p.Argent))
 	fmt.Println(yellow("\n                                    === Bienvenue chez le marchand ==="))
 	fmt.Println(green("\n                                    1. Potion de vie (3 pièces d'or)"))
 	fmt.Println(green("\n                                    2. Potion de poison (6 pièces d'or)"))

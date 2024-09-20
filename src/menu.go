@@ -60,9 +60,9 @@ func showMainMenu(p *Personnage) {
 func (p *Personnage) Qui() {
 	var choixqui int
 	fmt.Println("-------------------------Qui sont-ils ?----------------------------")
-	fmt.Println("Partie 2 : ABBA\n")
-	fmt.Println("Partie 3 : Steven Spielberg\n")
-	fmt.Println("0. Quitter\n")
+	fmt.Println("Partie 2 : ABBA")
+	fmt.Println("Partie 3 : Steven Spielberg")
+	fmt.Println("0. Quitter")
 	fmt.Scan(&choixqui)
 	switch choixqui {
 	case 0:

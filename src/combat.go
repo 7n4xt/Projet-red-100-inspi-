@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand/v2"
+	"time"
 
 	"github.com/fatih/color"
 )
@@ -21,7 +22,7 @@ func InitGobelin() Gobelin {
 		VieMax:        40,
 		VieActuelle:   40,
 		PointsAttaque: 5,
-		Initiative:    2,
+		Initiative:    4,
 	}
 }
 
@@ -58,7 +59,6 @@ func gobelinAttaque(p *Personnage, gobelin *Gobelin) {
 	fmt.Printf(red("Le %s vous attaque pour %d dégâts!\n"), yellow(gobelin.Nom), degats)
 	fmt.Printf(green("Vous avez %d PV restants.\n"), p.VieActuelle)
 }
-
 func playerAction(p *Personnage, gobelin *Gobelin) {
 	red := color.New(color.FgRed).SprintFunc()
 	green := color.New(color.FgGreen).SprintFunc()
@@ -67,6 +67,7 @@ func playerAction(p *Personnage, gobelin *Gobelin) {
 	fmt.Println(green("1. Attaquer"))
 	fmt.Println(green("2. Inventaire"))
 	fmt.Println(green("3. Utiliser un sort"))
+	fmt.Println(green("4. Lancer une Potion de poison"))
 	fmt.Println(red("0. Quittez le combat"))
 	fmt.Print(yellow("Entrez votre choix : "))
 
@@ -82,32 +83,98 @@ func playerAction(p *Personnage, gobelin *Gobelin) {
 		accessInventory(p)
 	case 3:
 		viewSpellbook(p, gobelin)
+	case 4:
+		throwPoisonPotion(p, gobelin)
 	default:
 		fmt.Println(color.RedString("Choix invalide."))
 	}
 
-	fmt.Printf("Le %s a %s/%s PV restants.\n", yellow(gobelin.Nom), green(gobelin.VieActuelle), green(gobelin.VieMax))
+	fmt.Printf("Le %s a %d/%d PV restants.\n", yellow(gobelin.Nom), green(gobelin.VieActuelle), green(gobelin.VieMax))
+}
+
+func throwPoisonPotion(p *Personnage, gobelin *Gobelin) {
+	red := color.New(color.FgRed).SprintFunc()
+	green := color.New(color.FgGreen).SprintFunc()
+	yellow := color.New(color.FgYellow).SprintFunc()
+
+	hasPotion := false
+	for i, item := range p.Inventaire {
+		if item == "Potion de poison" {
+			hasPotion = true
+			p.Inventaire = append(p.Inventaire[:i], p.Inventaire[i+1:]...)
+			break
+		}
+	}
+
+	if !hasPotion {
+		fmt.Println(red("Vous n'avez pas de Potion de poison dans votre inventaire."))
+		return
+	}
+
+	fmt.Println(yellow("Vous lancez une Potion de poison sur le Gobelin!"))
+	fmt.Println(red("Le Gobelin subira 10 points de dégâts chaque seconde pendant 3 secondes."))
+
+	for i := 0; i < 3; i++ {
+		gobelin.VieActuelle -= 10
+		if gobelin.VieActuelle < 0 {
+			gobelin.VieActuelle = 0
+		}
+		fmt.Printf(green("Le Gobelin a %d/%d PV.\n"), gobelin.VieActuelle, gobelin.VieMax)
+		time.Sleep(1 * time.Second)
+	}
+}
+
+func CommenceTour(perso *Personnage, gob *Gobelin) string {
+	green := color.New(color.FgGreen).SprintFunc()
+	red := color.New(color.FgRed).SprintFunc()
+	yellow := color.New(color.FgYellow).SprintFunc()
+
+	if perso.Initiative > gob.Initiative {
+		return green(perso.Nom) + " commence le tour."
+	} else if gob.Initiative > perso.Initiative {
+		return red(gob.Nom) + " commence le tour."
+	} else {
+		return yellow("Les deux commencent en même temps, c'est un match nul !")
+	}
 }
 
 func startCombatTraining(p *Personnage) {
 	green := color.New(color.FgGreen).SprintFunc()
 	red := color.New(color.FgRed).SprintFunc()
+	yellow := color.New(color.FgYellow).SprintFunc()
 
 	gobelin := InitGobelin()
 	fmt.Println(green("Le combat commence contre le"), red(gobelin.Nom))
 
+	fmt.Println(green(p.Nom), "a", green(p.Initiative), "points d'initiative.")
+	fmt.Println(red(gobelin.Nom), "a", red(gobelin.Initiative), "points d'initiative.")
+
 	for gobelin.VieActuelle > 0 && p.VieActuelle > 0 {
-		playerAction(p, &gobelin)
-		if gobelin.VieActuelle <= 0 {
-			fmt.Println(green("Vous avez vaincu le"), red(gobelin.Nom))
-			break
+		initiativeResult := CommenceTour(p, &gobelin)
+		fmt.Println(yellow(initiativeResult))
+
+		if p.Initiative >= gobelin.Initiative {
+			playerAction(p, &gobelin)
+			if gobelin.VieActuelle <= 0 {
+				fmt.Println(green("Vous avez vaincu le"), red(gobelin.Nom))
+				break
+			}
+			gobelinAttaque(p, &gobelin)
+		} else {
+			gobelinAttaque(p, &gobelin)
+			if p.VieActuelle <= 0 {
+				fmt.Println(red("Vous avez été vaincu par le"), gobelin.Nom)
+				fmt.Println(green("Vous êtes ressuscité avec 50% de vos points de vie maximum."))
+				p.VieActuelle = p.VieMax / 2
+				break
+			}
+			playerAction(p, &gobelin)
 		}
 
-		gobelinAttaque(p, &gobelin)
 		if p.VieActuelle <= 0 {
 			fmt.Println(red("Vous avez été vaincu par le"), gobelin.Nom)
-			fmt.Println(green("vous etes ressuscité avec 50% De vos points de vie maximum."))
-			p.VieActuelle /= p.VieMax
+			fmt.Println(green("Vous êtes ressuscité avec 50% de vos points de vie maximum."))
+			p.VieActuelle = p.VieMax / 2
 			break
 		}
 	}

@@ -4,7 +4,6 @@ import (
 	"fmt"
 )
 
-// Séquences d'échappement ANSI pour les couleurs
 const (
 	Reset  = "\033[0m"
 	Red    = "\033[31m"
