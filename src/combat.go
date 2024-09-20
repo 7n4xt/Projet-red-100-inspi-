@@ -58,6 +58,9 @@ func gobelinAttaque(p *Personnage, gobelin *Gobelin) {
 	}
 	fmt.Printf(red("Le %s vous attaque pour %d dégâts!\n"), (yellow(gobelin.Nom)), degats)
 	fmt.Printf(green("Vous avez %d PV restants.\n"), p.VieActuelle)
+	if degats > 12 {
+		fmt.Println(red("Dégâts critique !!!"))
+	}
 }
 func playerAction(p *Personnage, gobelin *Gobelin) {
 	red := color.New(color.FgRed).SprintFunc()

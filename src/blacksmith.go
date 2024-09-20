@@ -16,7 +16,7 @@ func afficherForgeron(p *Personnage) {
 	fmt.Println(green("\n                                    1. Chapeau de l’aventurier (1 Plume de Corbeau, 1 Cuir de Sanglier, 5 pièces d'or)"))
 	fmt.Println(green("\n                                    2. Tunique de l’aventurier (2 Fourrure de Loup, 1 Peau de Troll, 5 pièces d'or)"))
 	fmt.Println(green("\n                                    3. Bottes de l’aventurier (1 Fourrure de Loup, 1 Cuir de Sanglier, 5 pièces d'or)"))
-	fmt.Println(green("\n                                    0. Quitter"))
+	fmt.Println(red("\n                                    0. Quitter"))
 
 	var choix int
 	fmt.Print(green("Entrez votre choix : "))
