@@ -11,7 +11,7 @@ func afficherMarchand(p *Personnage) {
 	yellow := color.New(color.FgYellow).SprintFunc()
 	red := color.New(color.FgRed).SprintFunc()
 	green := color.New(color.FgGreen).SprintFunc()
-	fmt.Printf(yellow("\n                           Or = %d", p.Argent))
+	fmt.Printf("\n                           Or = %s ", yellow(p.Argent))
 	fmt.Println(yellow("\n                                    === Bienvenue chez le marchand ==="))
 	fmt.Println(green("\n                                    1. Potion de vie (3 pièces d'or)"))
 	fmt.Println(green("\n                                    2. Potion de poison (6 pièces d'or)"))
@@ -25,12 +25,12 @@ func afficherMarchand(p *Personnage) {
 	fmt.Print(yellow("Entrez votre choix : "))
 
 	var choix int
-	_, err := fmt.Scan(&choix)
+	fmt.Scan(&choix)
 	if choix == 0 {
 		fmt.Println("Vous quittez le marchand.")
 		showMainMenu(p)
 	}
-	if err != nil || choix < 1 || choix > 9 {
+	if choix > 8 {
 		fmt.Println(red("Erreur de saisie. Veuillez entrer un nombre valide."))
 		afficherMarchand(p)
 		return

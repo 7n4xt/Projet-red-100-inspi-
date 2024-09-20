@@ -56,7 +56,7 @@ func gobelinAttaque(p *Personnage, gobelin *Gobelin) {
 	if p.VieActuelle < 0 {
 		p.VieActuelle = 0
 	}
-	fmt.Printf(red("Le %s vous attaque pour %d dégâts!\n"), yellow(gobelin.Nom), degats)
+	fmt.Printf(red("Le %s vous attaque pour %d dégâts!\n"), (yellow(gobelin.Nom)), degats)
 	fmt.Printf(green("Vous avez %d PV restants.\n"), p.VieActuelle)
 }
 func playerAction(p *Personnage, gobelin *Gobelin) {
@@ -89,7 +89,7 @@ func playerAction(p *Personnage, gobelin *Gobelin) {
 		fmt.Println(color.RedString("Choix invalide."))
 	}
 
-	fmt.Printf("Le %s a %d/%d PV restants.\n", yellow(gobelin.Nom), green(gobelin.VieActuelle), green(gobelin.VieMax))
+	fmt.Printf("Le %s a %d/%d PV restants.\n", (yellow(gobelin.Nom)), gobelin.VieActuelle, gobelin.VieMax)
 }
 
 func throwPoisonPotion(p *Personnage, gobelin *Gobelin) {
@@ -119,7 +119,7 @@ func throwPoisonPotion(p *Personnage, gobelin *Gobelin) {
 		if gobelin.VieActuelle < 0 {
 			gobelin.VieActuelle = 0
 		}
-		fmt.Printf(green("Le Gobelin a %d/%d PV.\n"), gobelin.VieActuelle, gobelin.VieMax)
+		fmt.Printf(green("Le Gobelin a %d / %d PV.\n"), gobelin.VieActuelle, gobelin.VieMax)
 		time.Sleep(1 * time.Second)
 	}
 }
