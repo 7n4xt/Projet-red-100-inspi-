@@ -92,14 +92,14 @@ func accessInventoryCombat(p *Personnage, gobelin *Gobelin) {
 
 	fmt.Println(yellow("=== INVENTAIRE ==="))
 	if len(p.Inventaire) == 0 {
-		fmt.Println(red("L'inventaire est vide."))
+		fmt.Println(("L'inventaire est vide."))
 	} else {
 		for i, item := range p.Inventaire {
 			fmt.Printf("%d. %s\n", i+1, item)
 		}
 	}
 
-	fmt.Println(yellow("Choisissez un objet à utiliser ou entrez 0 pour revenir au combat."))
+	fmt.Println(red("Choisissez un objet à utiliser ou entrez 0 pour revenir au combat."))
 	var choix int
 	fmt.Scan(&choix)
 	if choix == 0 {

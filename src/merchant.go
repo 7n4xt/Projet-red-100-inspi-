@@ -2,21 +2,27 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/fatih/color"
 )
 
 func afficherMarchand(p *Personnage) {
-	fmt.Printf("\n                           Or = %d ", p.Argent)
-	fmt.Println("\n                                    === Bienvenue chez le marchand ===")
-	fmt.Println("\n                                    1. Potion de vie (3 pièces d'or)")
-	fmt.Println("\n                                    2. Potion de poison (6 pièces d'or)")
-	fmt.Println("\n                                    3. Livre de Sort : Boule de Feu (25 pièces d'or)")
-	fmt.Println("\n                                    4. Fourrure de Loup (4 pièces d'or)")
-	fmt.Println("\n                                    5. Peau de Troll (7 pièces d'or)")
-	fmt.Println("\n                                    6. Cuir de Sanglier (3 pièces d'or)")
-	fmt.Println("\n                                    7. Plume de Corbeau (1 pièce d'or)")
-	fmt.Println("\n                                    8. Augmenter de 10 la taille de l'inventaire (30 pièces d'or)")
-	fmt.Println("\n                                    0. Quitter")
-	fmt.Print("Entrez votre choix : ")
+
+	yellow := color.New(color.FgYellow).SprintFunc()
+	red := color.New(color.FgRed).SprintFunc()
+	green := color.New(color.FgGreen).SprintFunc()
+	fmt.Printf(yellow("\n                           Or = %d ", p.Argent))
+	fmt.Println(yellow("\n                                    === Bienvenue chez le marchand ==="))
+	fmt.Println(green("\n                                    1. Potion de vie (3 pièces d'or)"))
+	fmt.Println(green("\n                                    2. Potion de poison (6 pièces d'or)"))
+	fmt.Println(green("\n                                    3. Livre de Sort : Boule de Feu (25 pièces d'or)"))
+	fmt.Println(green("\n                                    4. Fourrure de Loup (4 pièces d'or)"))
+	fmt.Println(green("\n                                    5. Peau de Troll (7 pièces d'or)"))
+	fmt.Println(green("\n                                    6. Cuir de Sanglier (3 pièces d'or)"))
+	fmt.Println(green("\n                                    7. Plume de Corbeau (1 pièce d'or)"))
+	fmt.Println(green("\n                                    8. Augmenter de 10 la taille de l'inventaire (30 pièces d'or)"))
+	fmt.Println(red("\n                                    0. Quitter"))
+	fmt.Print(yellow("Entrez votre choix : "))
 
 	var choix int
 	_, err := fmt.Scan(&choix)
@@ -25,7 +31,7 @@ func afficherMarchand(p *Personnage) {
 		showMainMenu(p)
 	}
 	if err != nil || choix < 1 || choix > 9 {
-		fmt.Println("Erreur de saisie. Veuillez entrer un nombre valide.")
+		fmt.Println(red("Erreur de saisie. Veuillez entrer un nombre valide."))
 		afficherMarchand(p)
 		return
 	}

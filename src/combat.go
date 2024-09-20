@@ -60,18 +60,21 @@ func gobelinAttaque(p *Personnage, gobelin *Gobelin) {
 }
 
 func playerAction(p *Personnage, gobelin *Gobelin) {
+	red := color.New(color.FgRed).SprintFunc()
 	green := color.New(color.FgGreen).SprintFunc()
 	yellow := color.New(color.FgYellow).SprintFunc()
 	fmt.Println(green("C'est votre tour!"))
 	fmt.Println(green("1. Attaquer"))
 	fmt.Println(green("2. Inventaire"))
 	fmt.Println(green("3. Utiliser un sort"))
-	fmt.Println(green("0. Quittez le combat"))
+	fmt.Println(red("0. Quittez le combat"))
 	fmt.Print(yellow("Entrez votre choix : "))
 
 	var choix int
 	fmt.Scan(&choix)
-
+	if choix == 0 {
+		showMainMenu(p)
+	}
 	switch choix {
 	case 1:
 		attaquer(gobelin)
@@ -79,8 +82,6 @@ func playerAction(p *Personnage, gobelin *Gobelin) {
 		accessInventory(p)
 	case 3:
 		viewSpellbook(p, gobelin)
-	case 4:
-		showMainMenu(p)
 	default:
 		fmt.Println(color.RedString("Choix invalide."))
 	}

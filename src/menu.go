@@ -29,7 +29,7 @@ func showMainMenu(p *Personnage) {
 	fmt.Println(menuColor("\n                                    4. Le marchand"))
 	fmt.Println(menuColor("\n                                    5. Le forgeron"))
 	fmt.Println(menuColor("\n                                    6. Qui sont-ils?"))
-	fmt.Println(menuColor("\n                                    0. Quitter"))
+	fmt.Println(errorColor("\n                                    0. Quitter"))
 	fmt.Print(promptColor("Entrez votre choix : "))
 
 	var choix int
